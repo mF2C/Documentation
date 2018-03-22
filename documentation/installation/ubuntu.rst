@@ -9,54 +9,57 @@ machine is at least equipped with Docker and Docker Compose. As `sudo`:
 
 1. prepare the environment (https://docs.docker.com/install/linux/docker-ce/ubuntu/#set-up-the-repository)
 
-```bash
-# remove previous installations 
-apt-get remove -y docker docker-engine docker-ce docker.io
+.. code-block:: bash
 
-apt-get update
+    # remove previous installations 
+    apt-get remove -y docker docker-engine docker-ce docker.io
 
-apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+    apt-get update
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    apt-get install -y \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        software-properties-common
 
-apt-key fingerprint 0EBFCD88
-```
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-    1a. for x86_64 / amd64:
+    apt-key fingerprint 0EBFCD88
+
+
+2. for x86_64 / amd64:
     
-    ```bash
+.. code-block:: bash
+
     add-apt-repository \
         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) \
         stable"
-    ```
 
-    1a. for armhf:
+for armhf:
     
-    ```bash
+.. code-block:: bash
+
     add-apt-repository \
         "deb [arch=armhf] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) \
         stable"
-    ```
 
-2. install Docker
+3. install Docker
 
-```bash 
-apt-get update
+.. code-block:: bash
 
-apt-get install -y docker-ce
-```
+    apt-get update
 
-3. install Docker Compose (https://docs.docker.com/compose/install/#install-compose)
+    apt-get install -y docker-ce
 
-```bash
-curl -L https://github.com/docker/compose/releases/download/1.20.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
-chmod +x /usr/local/bin/docker-compose
-```
+4. install Docker Compose (https://docs.docker.com/compose/install/#install-compose)
+
+.. code-block:: bash
+
+    curl -L https://github.com/docker/compose/releases/download/1.20.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+    chmod +x /usr/local/bin/docker-compose
+
 

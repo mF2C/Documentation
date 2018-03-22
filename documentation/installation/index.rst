@@ -8,4 +8,4 @@ system in different types of devices and architectures.
    :maxdepth: 1
    :hidden:
 
-   ubuntu
+   ubuntu.rst
