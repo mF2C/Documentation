@@ -25,6 +25,6 @@ The mF2C API implementation has been adopted from the open source implementation
 
 
 .. _CIMI: https://www.dmtf.org/sites/default/files/standards/documents/DSP0263_2.0.0.pdf
-.. _SlipStream: http://ssapi.sixsq.com/#resource-selection
+.. _SlipStream: http://ssapi.sixsq.com/#cimi-api
 
 
