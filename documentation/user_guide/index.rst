@@ -7,4 +7,4 @@ This is the user guide
    :maxdepth: 1
    :hidden:
 
-   
+   api.rst
