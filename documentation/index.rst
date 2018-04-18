@@ -8,6 +8,5 @@ Welcome to the mF2C documentation!
    :hidden:
 
    introduction.rst
-   installation/index.rst
    user_guide/index.rst
    developer_guide/index.rst

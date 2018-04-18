@@ -6,3 +6,6 @@ This is the developer guide
 .. toctree::
    :maxdepth: 1
    :hidden:
+
+   cloud_agent.rst
+   installation.rst
