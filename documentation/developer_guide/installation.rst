@@ -68,3 +68,17 @@ To add container monitoring simply run:
         --name=cadvisor google/cadvisor:latest
 
 **Note** that this monitoring page will be publicly available in port 8080.
+
+
+Updating Components
+-------------------
+
+with docker-compose
+~~~~~~~~~~~~~~~~~~~
+
+If the mF2C agent has been installed with Docker Compose, then to update a single component without 
+having to re-deploy the full stack, simply run:
+
+.. code-block:: bash
+
+    docker-compose -f <yml_file> -p mf2c up -d <service_name>
