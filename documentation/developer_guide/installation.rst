@@ -1,6 +1,20 @@
 Installation
 ============
 
+Installing the mF2C System
+--------------------------
+
+Installing a Leader
+~~~~~~~~~~~~~~~~~~~
+
+
+Installing a regular agent
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
 Installing the mF2C Cloud Agent
 -------------------------------
 
