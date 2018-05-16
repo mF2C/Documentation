@@ -125,3 +125,60 @@ having to re-deploy the full stack, simply run:
 .. code-block:: bash
 
     docker-compose -f <yml_file> -p mf2c up -d <service_name>
+
+
+
+Use of the Certificate Authority servers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Relationship to Fog Components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are three CAs. They are completely separate from the Fog components eg Cimi, Discovery, Lifecycle, UserManagement and exist on a remote server. They interact only via the network. The CAs issue certificates that are critical for the running of the CAU demo.
+
+Requirements
+~~~~~~~~~~~~
+
+A host VM with 4GB of memory, 15GB of disk as a minimum and running Centos 7.4 and Docker 18.03.
+
+The VM is hosted on the Tiscali Engineering Openstack.
+
+Scripts need to be present client-side to run the CAU demo.
+
+Expected configuration
+~~~~~~~~~~~~~~~~~~~~~~
+
+The following ports need to be opened at the firewall inbound to the CAs.
+•       51443 – root CA
+•       52443 – Untrust CA
+•       53433 – Fog CA
+Most firewalls allow unrestricted outbound connections so no ports need be opened client-side.
+
+The firewall ports forward to the containers running the CAs.
+[centos@machine38ca0207-da55-46d4-973e-4343f9d28d0b ~]$ sudo firewall-cmd --list-forward
+port=51080:proto=tcp:toport=80:toaddr=172.18.0.2
+port=52080:proto=tcp:toport=80:toaddr=172.18.0.3
+port=53080:proto=tcp:toport=80:toaddr=172.18.0.4
+port=53443:proto=tcp:toport=8443:toaddr=172.18.0.4
+port=52443:proto=tcp:toport=8443:toaddr=172.18.0.3
+port=51443:proto=tcp:toport=8443:toaddr=172.18.0.2
+port=51022:proto=tcp:toport=22:toaddr=172.18.0.2
+port=52022:proto=tcp:toport=22:toaddr=172.18.0.3
+port=53022:proto=tcp:toport=22:toaddr=172.18.0.4
+
+Domain names and DNS
+~~~~~~~~~~~~~~~~~~~~
+
+The DNS name for the VM host is it1demo.mf2c-project.eu
+
+The DNS name is registered and published by Tiscali Engineering. Contact Antonio for assistance.
+
+The CA containers have these IP addresses. If the container is restarted the IP addresses might change in which case alter /etc/hosts on all containers and change the firewall rules on the VM host for port forwarding.
+
+172.18.0.2      rootca.it1demo.mf2c-project.eu
+172.18.0.3      untrust.it1demo.mf2c-project.eu
+172.18.0.4      fog.it1demo.mf2c-project.eu
+
+213.205.14.13           VM host for the containers
+
+
