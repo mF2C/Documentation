@@ -4,14 +4,14 @@ Installation
 Installing the mF2C System
 --------------------------
 
-**For Linux only**
+*For Linux only*
 
 1. download and run the Linux installation script (**docker-compose required**)
 
 .. code-block:: bash
 
     git clone https://github.com/mF2C/mF2C.git
-    cd linux
+    cd mF2C/linux
     
     
 
