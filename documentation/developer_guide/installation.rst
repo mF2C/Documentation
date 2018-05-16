@@ -147,38 +147,18 @@ Scripts need to be present client-side to run the CAU demo.
 Expected configuration
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The following ports need to be opened at the firewall inbound to the CAs.
-- 51443 – root CA
-- 52443 – Untrust CA
-- 53433 – Fog CA
-Most firewalls allow unrestricted outbound connections so no ports need be opened client-side.
+Refer to the documentation for a list of the firewall ports that need to be opened and the firewall rules to implement the port-forwarding.
+ https://repository.atosresearch.eu/owncloud/index.php/apps/files/?dir=%2FmF2C%2FWorking%20Folders%2FWP5%20PoC%20integration%2FCA
 
-The firewall ports forward to the containers running the CAs.
-sudo firewall-cmd --list-forward
-port=51080:proto=tcp:toport=80:toaddr=172.18.0.2
-port=52080:proto=tcp:toport=80:toaddr=172.18.0.3
-port=53080:proto=tcp:toport=80:toaddr=172.18.0.4
-port=53443:proto=tcp:toport=8443:toaddr=172.18.0.4
-port=52443:proto=tcp:toport=8443:toaddr=172.18.0.3
-port=51443:proto=tcp:toport=8443:toaddr=172.18.0.2
-port=51022:proto=tcp:toport=22:toaddr=172.18.0.2
-port=52022:proto=tcp:toport=22:toaddr=172.18.0.3
-port=53022:proto=tcp:toport=22:toaddr=172.18.0.4
 
 Domain names and DNS
 ~~~~~~~~~~~~~~~~~~~~
 
-The DNS name for the VM host is it1demo.mf2c-project.eu
 
 The DNS name is registered and published by Tiscali Engineering. Contact Antonio for assistance.
 
-The CA containers have these IP addresses. If the container is restarted the IP addresses might change in which case alter /etc/hosts on all containers and change the firewall rules on the VM host for port forwarding.
+Refer to the documentation at  https://repository.atosresearch.eu/owncloud/index.php/apps/files/?dir=%2FmF2C%2FWorking%20Folders%2FWP5%20PoC%20integration%2FCA for a list of IP addresses and domain names.
 
-172.18.0.2      rootca.it1demo.mf2c-project.eu
-172.18.0.3      untrust.it1demo.mf2c-project.eu
-172.18.0.4      fog.it1demo.mf2c-project.eu
-
-213.205.14.13           VM host for the containers
 
 Passwords, certificates and ssh keys
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
