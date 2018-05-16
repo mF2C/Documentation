@@ -18,9 +18,21 @@ Installing the mF2C System
 Installing a Leader
 ~~~~~~~~~~~~~~~~~~~
 
+**Prerequisites for the discovery module:**
+
+A device with a wireless card that supports "master mode" (i.e. that can act as an access point). You can check whether your card supports master mode by running the following command, looking for the "Supported interface modes". You should find "AP" in the list (i.e. Master mode) :
+
+.. code-block:: bash
+
+    sudo iw list
+    
+Then, the following script should be run as follows to start the agent with the "leader" role:
+
 .. code-block:: bash
 
     ./mf2c-deployment.sh --isLeader
+    
+As far as the discovery module is concerned, this script grabs the name of the wireless interface to be used. It then makes sure the discovery container is run with the --cap-add=NET_ADMIN, since network admin capabilities are needed to access the wireless interface of the host machine. It also programmatically associates the physical wireless interface to the newly created container. Finally, the wireless interface is brought up within the container.
     
 Installing a regular agent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
