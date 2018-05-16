@@ -130,7 +130,6 @@ having to re-deploy the full stack, simply run:
 
 Use of the Certificate Authority servers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 Relationship to Fog Components
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -149,13 +148,13 @@ Expected configuration
 ~~~~~~~~~~~~~~~~~~~~~~
 
 The following ports need to be opened at the firewall inbound to the CAs.
-•       51443 – root CA
-•       52443 – Untrust CA
-•       53433 – Fog CA
+- 51443 – root CA
+- 52443 – Untrust CA
+- 53433 – Fog CA
 Most firewalls allow unrestricted outbound connections so no ports need be opened client-side.
 
 The firewall ports forward to the containers running the CAs.
-[centos@machine38ca0207-da55-46d4-973e-4343f9d28d0b ~]$ sudo firewall-cmd --list-forward
+sudo firewall-cmd --list-forward
 port=51080:proto=tcp:toport=80:toaddr=172.18.0.2
 port=52080:proto=tcp:toport=80:toaddr=172.18.0.3
 port=53080:proto=tcp:toport=80:toaddr=172.18.0.4
@@ -181,4 +180,7 @@ The CA containers have these IP addresses. If the container is restarted the IP 
 
 213.205.14.13           VM host for the containers
 
+Passwords, certificates and ssh keys
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+These are listed in the restricted access documentation and zip files located at https://repository.atosresearch.eu/owncloud/index.php/apps/files/?dir=%2FmF2C%2FWorking%20Folders%2FWP5%20PoC%20integration%2FCA
