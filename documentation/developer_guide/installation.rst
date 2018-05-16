@@ -129,7 +129,8 @@ having to re-deploy the full stack, simply run:
 
 
 Use of the Certificate Authority servers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------
+
 Relationship to Fog Components
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
