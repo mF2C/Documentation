@@ -165,3 +165,26 @@ Passwords, certificates and ssh keys
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 These are listed in the restricted access documentation and zip files located at https://repository.atosresearch.eu/owncloud/index.php/apps/files/?dir=%2FmF2C%2FWorking%20Folders%2FWP5%20PoC%20integration%2FCA
+
+Cau-client component
+~~~~~~~~~~~~~~~~~~~~
+
+Description:
+This component is a JAVA application.  It supports the Agent Discovery and Authentication process.  It is triggered by the policy block via TCP-IP to kick off the agent authentication process.  It starts by establishing a TLS connection via TCP-IP to the regional CAU to request an Agent certificate.  After successfully obtained the signed certificate, it performs a TLS handshake via TCP-IP with the Leader Agent's CAU to exchange keys to secure future communication.
+
+Installation:
+The component is installed by running the mF2C docker-compose.yml.  
+
+Configuration:
+The cau-client listens on port 46065 for the policy block trigger.  You can change this by amending the value of the 'expose' instruction in the cau-client block in the docker compose.yml file.  See below:
+	
+    expose:
+      - 46065 #replace this value
+
+You also need to tell cau-client where the regional CAU and the leader agent CAU are located.  This is done by amending the cau-client block in the docker-compose.yml file, providing values to the CAU_URL and LCAU_URL environemnt variables.  For example:
+
+    environment:
+      - CAU_URL=10.0.0.129:46400
+      - LCAU_URL=10.0.0.129:46410
+
+
