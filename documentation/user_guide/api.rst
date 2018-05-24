@@ -85,7 +85,7 @@ Let's say we want to get a list of all the events registered in the database (th
 
 .. code-block:: bash
 
-    curl -XGET https://nuv.la/api/event --cookie-jar ~/cookies -b ~/cookies -sS
+    curl -XGET https://cimi/api/event --cookie-jar ~/cookies -b ~/cookies -sS
 
 
 Filter for a specific dataset
