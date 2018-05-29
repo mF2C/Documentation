@@ -254,7 +254,7 @@ Deploy and start a service
 	  "agreement_id": "agreement/19e4cf61-6a9b-4d88-9f78-2408d568ed0e"
 	}
     EOF
-    curl -H "Content-Type: application/json" -X POST https://lifecycle:4600/api/v1/lifecycle -d @post_service1.json --insecure
+    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v1/lifecycle -d @post_service1.json --insecure
 
 2. If the user wants to specify the agents where the service will be deployed, then we need another parameter: a list of agents
 
@@ -268,7 +268,7 @@ Deploy and start a service
 	  "agents_list": [{"agent_ip": "192.168.252.41"}, {"agent_ip": "192.168.252.42"}]
 	}
     EOF
-    curl -H "Content-Type: application/json" -X POST https://lifecycle:4600/api/v1/lifecycle -d @post_service2.json --insecure
+    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v1/lifecycle -d @post_service2.json --insecure
 
 
 3. Finally, if the user wants to specify the service to be deployed, then we need to include the service content in the call to the lifecycle:
@@ -312,7 +312,7 @@ Deploy and start a service
 	  "agents_list": [{"agent_ip": "192.168.252.41"}, {"agent_ip": "192.168.252.42"}]
 	}
     EOF
-    curl -H "Content-Type: application/json" -X POST https://lifecycle:4600/api/v1/lifecycle -d @post_service3.json --insecure
+    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v1/lifecycle -d @post_service3.json --insecure
 
 If the service is successfully deployed, then the response should contain the resulting service instance object:
 
@@ -400,7 +400,7 @@ Stop and start a service instance
 	  "operation":"stop"
 	  }
     EOF
-    curl -H "Content-Type: application/json" -X PUT https://lifecycle:4600/api/v1/lifecycle -d @put_stop_service_instance.json --insecure
+    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v1/lifecycle -d @put_stop_service_instance.json --insecure
 
 
 2. And it can be restarted again with the following command:
@@ -413,7 +413,7 @@ Stop and start a service instance
 	  "operation":"start"
 	  }
     EOF
-    curl -H "Content-Type: application/json" -X PUT https://lifecycle:4600/api/v1/lifecycle -d @put_start_service_instance.json --insecure
+    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v1/lifecycle -d @put_start_service_instance.json --insecure
 
 
 Sart a job (COMPSs services)
@@ -432,11 +432,11 @@ Services based on COMPSs can also run specific jobs in the mF2C agents. The life
   	"parameters":"<ceiClass>es.bsc.compss.test.TestItf</ceiClass><className>es.bsc.compss.test.Test</className><methodName>main</methodName><parameters><params paramId='0'><direction>IN</direction><type>OBJECT_T</type><array paramId='0'><componentClassname>java.lang.String</componentClassname><values><element paramId='0'><className>java.lang.String</className><value xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xsi:type='xs:string'>3</value></element></values></array></params></parameters>"
 	  }
     EOF
-    curl -H "Content-Type: application/json" -X PUT https://lifecycle:4600/api/v1/lifecycle -d @put_start_job.json --insecure
+    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v1/lifecycle -d @put_start_job.json --insecure
 
 For IT-1 we need to pass the lifecycle part of the XML needed ('parameters') to call the COMPSs REST API.
 
-Terminate a service instances
+Terminate a service instance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The call to terminate a service instance, stops and removes the service instance (docker containers) from the agents.
@@ -450,7 +450,7 @@ The call to terminate a service instance, stops and removes the service instance
     "service_instance_id":"9a22a9a7-6a9c-40e9-b2cf-983dde76293e"
 	  }
     EOF
-    curl -H "Content-Type: application/json" -X DELETE https://lifecycle:4600/api/v1/lifecycle -d @delete_service_instance.json --insecure
+    curl -H "Content-Type: application/json" -X DELETE https://lifecycle:46000/api/v1/lifecycle -d @delete_service_instance.json --insecure
 
 
 Get service instances
@@ -460,11 +460,11 @@ Get service instances
 
 .. code-block:: bash
 
-    curl https://lifecycle:4600/api/v1/lifecycle/service-instance/all --insecure
+    curl https://lifecycle:46000/api/v1/lifecycle/service-instance/all --insecure
 
 
 2. To get a specific service instance:
 
 .. code-block:: bash
 
-    curl https://lifecycle:4600/api/v1/lifecycle/service-instance/4e1ab919-7a02-4260-993a-e0f5382ea580 --insecure
+    curl https://lifecycle:46000/api/v1/lifecycle/service-instance/4e1ab919-7a02-4260-993a-e0f5382ea580 --insecure
