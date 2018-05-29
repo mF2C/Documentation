@@ -18,6 +18,18 @@ Installing the mF2C System
 Installing a Leader
 ~~~~~~~~~~~~~~~~~~~
 
+**Prerequisites for the policies module:**
+
+One of the responsibilities of this module is to provide the execution of the strategy for the Leader Failure, by selecting a backup. The static list of devices allowed to become a backup by the user must be provided before executing the agent. You should modify the `.env` file adding the topology like the following line:
+
+.. code-block:: txt
+
+	TOPOLOGY=[(123,'192.168.5.2'),(456,'192.168.5.4')]
+
+Here, you should provide for each allowed backup, an integer to identify internally the agent and the IP address, each device surrounded with parenthesis and the IP address with single quoting. An empty topology forces the Leader to not select any backup.
+
+*This configuration can be applied to a regular agent aswell. If the agent becomes a leader due a leader failure, the provided topology is used to select the new backup*
+
 **Prerequisites for the discovery module:**
 
 A device with a wireless card that supports "master mode" (i.e. that can act as an access point). You can check whether your card supports master mode by running the following command, looking for the "Supported interface modes". You should find "AP" in the list (i.e. Master mode) :
