@@ -20,7 +20,7 @@ Installing a Leader
 
 **Prerequisites for the policies module:**
 
-One of the responsibilities of this module is to provide the execution of the strategy for the Leader Failure, by selecting a backup. The static list of devices allowed to become a backup by the user must be provided before executing the agent. You should modify the `.env` file adding the topology like the following line:
+One of the responsibilities of this module is to provide the execution of the strategy for the Leader Failure, by selecting a backup. The static list of allowed devices to become a backup by the user must be provided before executing the agent. You should modify the `.env` file adding the topology like the following line:
 
 .. code-block:: txt
 
@@ -48,6 +48,19 @@ As far as the discovery module is concerned, this script grabs the name of the w
     
 Installing a regular agent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Prerequisites for the policies module:**
+
+If the agent becomes a leader due a leader failure, the provided topology is used to select the new backup. 
+
+One of the responsibilities of this module is to provide the execution of the strategy for the Leader Failure, by selecting a backup. The static list of allowed devices to become a backup by the user must be provided before executing the agent. You should modify the `.env` file adding the topology like the following line:
+
+.. code-block:: txt
+
+	TOPOLOGY=[(123,'192.168.5.2'),(456,'192.168.5.4')]
+
+Here, you should provide for each allowed backup, an integer to identify internally the agent and the IP address, each device surrounded with parenthesis and the IP address with single quoting. An empty topology forces the Leader to not select any backup.
+
 
 .. code-block:: bash
 
