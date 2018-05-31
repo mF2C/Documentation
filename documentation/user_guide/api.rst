@@ -468,3 +468,53 @@ Get service instances
 .. code-block:: bash
 
     curl https://lifecycle:46000/api/v1/lifecycle/service-instance/4e1ab919-7a02-4260-993a-e0f5382ea580 --insecure
+
+Landscaper module
+-----------------------------
+The Landscaper component is part of the Platform Manager's Service Orchestration module. 
+It constructs a graph model of the computing infrastructure. The graph details what service are running on what virtual infrastructure, and on which physical hosts that virtual infrastructure is running on.
+For IT-1, the landscaper is accessible through *http://localhost:46020/
+
+Get full graph of system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This method returns the entire graph of all infrastructure, containers and services currently deployed. It can be used to get a dump from the database 
+
+.. code-block:: bash
+
+    curl -X GET https://localhost:46020/graph
+
+
+Get full graph of system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This method returns the entire graph of all infrastructure, containers and services currently deployed. It can be used to get a dump from the database 
+
+.. code-block:: bash
+
+    curl -X GET https://localhost:46020/graph
+
+
+Get a service stack's subgraph
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This method returns a subgraph from the model of all nodes involved in the running of this service. It starts with the service node (as input parameter) and works down through the entire structure of the graph
+
+.. code-block:: bash
+
+    curl -X GET https://localhost:46020/subgraph/<service_id>
+
+
+Add GeoLocation info to nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Stores the geo-location as tags to selected nodes in the database. Useful to track static edge compute locations. Takes in an array of node Id's and geo locations
+
+
+.. code-block:: bash
+    cat >geo_location.json <<EOF
+    { [ 
+    	{
+    	"id": "<node_id>", 
+    	"geo": "<geo_location_info"
+    	}
+      ]
+    }
+    EOF
+    curl -H "Content-Type: application/json" -X PUT https://localhost:46020/coordinates -d @geo_location.json --insecure
