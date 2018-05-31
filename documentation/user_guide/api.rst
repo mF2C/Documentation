@@ -119,9 +119,9 @@ Service Manager
 ---------------
 The Service Manager is an internal component of the mF2C system that will not be exposed. However, in the current development state and for testing purposes, it is accessible through *http://service-manager:46200*.
 
-Submit a service
-~~~~~~~~~~~~~~~~
-1. For any workflow to work, the first step is to submit a service to the service manager:
+Service registration
+~~~~~~~~~~~~~~~~~~~~
+For any workflow to work, the first step is to submit a service to the service manager:
 
 .. code-block:: bash
 
@@ -154,86 +154,6 @@ Submit a service
 	}
     EOF
     curl -XPOST -k http://service-manager:46200/api/service-management/categorizer -d @service.json -H "Content-type: application/json"
-
-Check QoS provider
-~~~~~~~~~~~~~~~~~~
-
-Before to check the QoS of a specific service, some previous steps are required.
-
-1. Submit an Agreement:
-
-.. code-block:: bash
-
-    cat >agreement.json <<EOF
-    {
-    "name": "AGREEMENT 1",
-    "state": "started",
-    "details":{
-        "id": "agreement",
-        "type": "agreement",
-        "name": "AGREEMENT 1",
-        "provider": { "id": "mf2c", "name": "mF2C Platform" },
-        "client": { "id": "c02", "name": "A client" },
-        "creation": "2018-01-16T17:09:45.01Z",
-        "expiration": "2019-01-17T17:09:45.01Z",
-        "guarantees": [
-            	{
-                "name": "TestGuarantee",
-                "constraint": "execution_time < 10.0"
-            	}
-        			]
-    	}
-	}
-    EOF
-    curl -XPOST -k https://cimi/api/agreement -d @agreement.json -H "Content-type: application/json" -H 'slipstream-authn-info: super ADMIN'
-
-2. Submit a Service Instance specifying the *<service-id>* and the *<agreement-id>*:
-
-.. code-block:: bash
-
-    cat >service-instance.json <<EOF
-    {
-	  "service" : "service/<service-id>",
-	  "status" : "not-defined",
-	  "agreement" : "agreement/<agreement-id>",
-	  "agents" : [ {
-	    "agent" : {
-	      "href" : "agent/default-value"
-	    },
-	    "allow" : true,
-	    "ports" : [ 46100, 46101, 46102, 46103 ],
-	    "status" : "not-defined",
-	    "agent_param" : "not-defined",
-	    "url" : "192.168.252.41",
-	    "container_id" : "-",
-	    "master_compss" : true,
-	    "num_cpus" : 7
-	  } ],
-	  "user" : "testuser"
-	}
-    EOF
-    curl -XPOST -k https://cimi/api/service-instance -d @service-instance.json -H "Content-type: application/json" -H 'slipstream-authn-info: super ADMIN'
-
-3. Submit a Service Operation Report specifying the <service-instance-id>:
-
-.. code-block:: bash
-
-    cat >service-operation-report.json <<EOF
-    {
-	    "serviceInstance": {"href": "service-instance/<service-instance-id>"},
-	    "operation": "TestGuarantee",
-	    "execution_time": 50.0
-	}
-    EOF
-    curl -XPOST -k https://cimi/api/service-operation-report -d @service-operation-report.json -H "Content-type: application/json" -H 'slipstream-authn-info: super ADMIN'
-
-Finally, check the QoS of a service instance specifying the id:
-
-.. code-block:: bash
-
-    curl -XGET http://service-manager:46200/api/service-management/qos/<service-instance-id>
-
-As a result of the operation, the service instance will be returned.
 
 Lifecycle Management module
 -----------------------------
