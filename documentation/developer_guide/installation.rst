@@ -45,7 +45,19 @@ Then, the following script should be run as follows to start the agent with the 
     ./mf2c-deployment.sh --isLeader
     
 As far as the discovery module is concerned, this script grabs the name of the wireless interface to be used. It then makes sure the discovery container is run with the --cap-add=NET_ADMIN, since network admin capabilities are needed to access the wireless interface of the host machine. It also programmatically associates the physical wireless interface to the newly created container. Finally, the wireless interface is brought up within the container.
-    
+
+**Prerequisites for the data management module:**
+
+This module is responsible for transparently replicating the necessary data from children to their leader so that the leader has a global view of its cluster. This allows the different components in the leader to forget about data transfers and replicas, and access all the data in the cluster as if it was only in the leader. 
+
+To achieve this behaviour, you should modify the `.env` file adding the IP addresses of this leader's children as follows: 
+
+.. code-block:: txt
+
+	CHILDREN_DC=host1:port1;host2:port2;...;hostn:portn
+
+
+
 Installing a regular agent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -67,7 +79,17 @@ Here, you should provide for each allowed backup, an integer to identify interna
     ./mf2c-deployment.sh
 
 
+**Prerequisites for the data management module:**
 
+This module is responsible for transparently replicating the necessary data from children to their leader so that the leader has a global view of its cluster.  
+
+To achieve this behaviour, you should modify the `.env` file adding the IP address of this agent's leader as follows: 
+
+.. code-block:: txt
+
+	LEADER_DC=host:port
+	
+	
 
 Installing the mF2C Cloud Agent
 -------------------------------
