@@ -242,16 +242,16 @@ The SLA Management is a lightweight implementation of an SLA system, inspired by
 
 To make use of the SLA Management on IT-1, you must install an agreement in the system. This agreement will be detected by the GUI when creating a service instance and will be associated to it.
 
-An agreement is represented by a simple JSON structure. Below is the default agreement that you should install. This agreement will check that the service operations are executed in less than one second. Modify the constraint to allow different time threshold. You must also modify the name of the agreement (including the details part) to match the name of a installed service. Install as many agreements as service kinds you want to observe.
+An agreement is represented by a simple JSON structure. Below is the default agreement that you should install. This agreement will check that the service operations are executed in less than one second. Modify the constraint to allow different time threshold.
 
 .. code-block:: bash
 
  {
-    "name": "your-service-name-here",
+    "name": "*",
     "details":{
 	"id": "2018-000234",
 	"type": "agreement",
-	"name": "your-service-name-here",
+	"name": "*",
 	"provider": { "id": "mf2c", "name": "mF2C Platform" },
 	"client": { "id": "a-client", "name": "A client" },
 	"creation": "2018-01-16T17:09:45Z",
@@ -269,13 +269,13 @@ To install the agreement, type the following command, where $CIMI_URL is the URL
 
 .. code-block:: bash
 
-  curl -X POST -d @agreement.json -H"Content-type:application/json" -H"slipstream-authn-info: super  ADMIN" $CIMI_URL/api/agreement
+  curl -X POST -d @agreement.json -H"Content-type:application/json" $CIMI_URL/api/agreement
 
 Advance usage
 ~~~~~~~~~~~~~
 
 The LifecycleManager is responsible, on a service instance creation, to generate an agreement and to start its assessment.
-At the moment, the agreement generation is not available. For this reason, you must install an agreement as explained above, which will be utilized when creating services using the GUI. If you plan to have different SLAs for the different services, an agreement must be manually created on CIMI for each service instance that needs to have an SLA.
+At the moment, the agreement generation is not available. For this reason, you must install an agreement as explained above, which will be utilized when creating services using the GUI. If you plan to have different SLAs for the different services, an agreement must be manually created on CIMI for each service instance that needs to have an SLA. In this case, you must also modify the fields .name and .details.name of the agreement to match the name of an installed service. Install as many agreements as service kinds you want to observe.
 
 Currently, the assessment only is able to evaluate execution_time metrics, which are retrieved from the service-operation-report
 resource. The Distributed Execution Runtime (DER) stores instances of this resource when completing an operation. Any non-DER
