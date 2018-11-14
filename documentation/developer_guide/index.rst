@@ -9,4 +9,5 @@ This is the developer guide
 
    cloud_agent.rst
    installation.rst
+   testing.rst
    credentials.rst
