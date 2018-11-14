@@ -18,6 +18,18 @@ Installing the mF2C System
 Installing a Leader
 ~~~~~~~~~~~~~~~~~~~
 
+**Prerequisites for the policies module:**
+
+One of the responsibilities of this module is to provide the execution of the strategy for the Leader Failure, by selecting a backup. The static list of allowed devices to become a backup by the user must be provided before executing the agent. You should create an environment variable adding the topology like the following line:
+
+.. code-block:: bach
+
+	export "ALLOWED_BACKUPS=[(123,'192.168.5.2'),(456,'192.168.5.4')]"
+
+Here, you should provide for each allowed backup, an integer to identify internally the agent and the IP address, each device surrounded with parenthesis and the IP address with single quoting. An empty topology forces the Leader to not select any backup.
+
+*This configuration can be applied to a regular agent aswell. If the agent becomes a leader due a leader failure, the provided topology is used to select the new backup*
+
 **Prerequisites for the discovery module:**
 
 A device with a wireless card that supports "master mode" (i.e. that can act as an access point). You can check whether your card supports master mode by running the following command, looking for the "Supported interface modes". You should find "AP" in the list (i.e. Master mode) :
@@ -33,16 +45,51 @@ Then, the following script should be run as follows to start the agent with the 
     ./mf2c-deployment.sh --isLeader
     
 As far as the discovery module is concerned, this script grabs the name of the wireless interface to be used. It then makes sure the discovery container is run with the --cap-add=NET_ADMIN, since network admin capabilities are needed to access the wireless interface of the host machine. It also programmatically associates the physical wireless interface to the newly created container. Finally, the wireless interface is brought up within the container.
-    
+
+**Prerequisites for the data management module:**
+
+This module is responsible for transparently replicating the necessary data from children to their leader so that the leader has a global view of its cluster. This allows the different components in the leader to forget about data transfers and replicas, and access all the data in the cluster as if it was only in the leader. 
+
+To achieve this behaviour, you should modify the `.env` file adding the IP addresses of this leader's children as follows: 
+
+.. code-block:: txt
+
+	CHILDREN_DC=host1:port1;host2:port2;...;hostn:portn
+
+
+
 Installing a regular agent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Prerequisites for the policies module:**
+
+If the agent becomes a leader due a leader failure, the provided topology is used to select the new backup. 
+
+One of the responsibilities of this module is to provide the execution of the strategy for the Leader Failure, by selecting a backup. The static list of allowed devices to become a backup by the user must be provided before executing the agent. You should create an environment variable adding the topology like the following line:
+
+.. code-block:: bash
+
+	export "ALLOWED_BACKUPS=[(123,'192.168.5.2'),(456,'192.168.5.4')]"
+
+Here, you should provide for each allowed backup, an integer to identify internally the agent and the IP address, each device surrounded with parenthesis and the IP address with single quoting. An empty topology forces the Leader to not select any backup.
+
 
 .. code-block:: bash
 
     ./mf2c-deployment.sh
 
 
+**Prerequisites for the data management module:**
 
+This module is responsible for transparently replicating the necessary data from children to their leader so that the leader has a global view of its cluster.  
+
+To achieve this behaviour, you should modify the `.env` file adding the IP address of this agent's leader as follows: 
+
+.. code-block:: txt
+
+	LEADER_DC=host:port
+	
+	
 
 Installing the mF2C Cloud Agent
 -------------------------------
@@ -234,3 +281,84 @@ The steps to evaluate an agreement for a service instance are:
    starts the agreement assessment. Alternatively, you can manually update the agreement field of an existing service instance 
    and update the status field to "started" of the corresponding agreement resource.
 3. Once the service is started, instances of the sla-violation resource are created if any guarantee term is not fulfilled.
+
+
+Check QoS provider
+------------------
+
+Before to check the QoS of a specific service, some previous steps are required.
+
+1. Submit an Agreement:
+
+.. code-block:: bash
+
+    cat >agreement.json <<EOF
+    {
+    "name": "AGREEMENT 1",
+    "state": "started",
+    "details":{
+        "id": "agreement",
+        "type": "agreement",
+        "name": "AGREEMENT 1",
+        "provider": { "id": "mf2c", "name": "mF2C Platform" },
+        "client": { "id": "c02", "name": "A client" },
+        "creation": "2018-01-16T17:09:45.01Z",
+        "expiration": "2019-01-17T17:09:45.01Z",
+        "guarantees": [
+              {
+                "name": "TestGuarantee",
+                "constraint": "execution_time < 10.0"
+              }
+              ]
+      }
+  }
+    EOF
+    curl -XPOST -k https://cimi/api/agreement -d @agreement.json -H "Content-type: application/json" -H 'slipstream-authn-info: super ADMIN'
+
+2. Submit a Service Instance specifying the *<service-id>* and the *<agreement-id>*:
+
+.. code-block:: bash
+
+    cat >service-instance.json <<EOF
+    {
+    "service" : "service/<service-id>",
+    "status" : "not-defined",
+    "agreement" : "agreement/<agreement-id>",
+    "agents" : [ {
+      "agent" : {
+        "href" : "agent/default-value"
+      },
+      "allow" : true,
+      "ports" : [ 46100, 46101, 46102, 46103 ],
+      "status" : "not-defined",
+      "agent_param" : "not-defined",
+      "url" : "192.168.252.41",
+      "container_id" : "-",
+      "master_compss" : true,
+      "num_cpus" : 7
+    } ],
+    "user" : "testuser"
+  }
+    EOF
+    curl -XPOST -k https://cimi/api/service-instance -d @service-instance.json -H "Content-type: application/json" -H 'slipstream-authn-info: super ADMIN'
+
+3. Submit a Service Operation Report specifying the <service-instance-id>:
+
+.. code-block:: bash
+
+    cat >service-operation-report.json <<EOF
+    {
+      "serviceInstance": {"href": "service-instance/<service-instance-id>"},
+      "operation": "TestGuarantee",
+      "execution_time": 50.0
+  }
+    EOF
+    curl -XPOST -k https://cimi/api/service-operation-report -d @service-operation-report.json -H "Content-type: application/json" -H 'slipstream-authn-info: super ADMIN'
+
+Finally, check the QoS of a service instance specifying the id:
+
+.. code-block:: bash
+
+    curl -XGET http://service-manager:46200/api/service-management/qos/<service-instance-id>
+
+As a result of the operation, the service instance will be returned.
