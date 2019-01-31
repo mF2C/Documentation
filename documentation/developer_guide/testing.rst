@@ -125,24 +125,38 @@ To get a specific resource, use its unique ID:
 Create a new service
 ~~~~~~~~~~~~~~~~~~~~
 
+Example with only required fields:
+
 .. code-block:: bash
 
     mf2c-curl-post https://localhost/api/service -d '''
     {
-        "name": "hello-world",
+       "name": "compss-hello-world",
+       "exec": "mf2c/compss-test:it2",
+       "exec_type": "compss",
+       "agent_type": "normal"
+    }'''
+
+Example with all optional fields:
+
+.. code-block:: bash
+
+    mf2c-curl-post https://localhost/api/service -d '''
+    {
+        "name": "compss-hello-world",
         "description": "Hello World Service",
-        "exec": "hello-world",
-        "exec_type": "docker",
+        "exec": "mf2c/compss-test:it2",
+        "exec_type": "compss",
         "exec_ports": [8080],
-        "agent_type": "cloud",
+        "agent_type": "normal",
+        "num_agents": "2",
         "cpu_arch": "x86-64",
         "os": "linux", 
         "memory_min": 1000,
         "storage_min": 100, 
         "disk": 100, 
-        "req_resource": ["Location", "Sentinel", "Ambulance"],
-        "opt_resource": ["SenseHat", "GP-20U7"],
-        "category": 3 
+        "req_resource": ["Location"],
+        "opt_resource": ["SenseHat"]
     }'''
 
 Create a service instance
