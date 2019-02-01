@@ -175,43 +175,36 @@ having to re-deploy the full stack, simply run:
 
 
 
-Use of the Certificate Authority servers
+Use of the Certificate Authority server
 ----------------------------------------
 
-Relationship to Fog Components
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The Certification Authority (https://github.com/mF2C/certauth) is a JAVA Jersey ReST application deployed on a Tomcat container.  It provides 8 different certification CA endpoints.  The CAs are independent components that exist independently to the mF2C Agents and fog clusters as well as the CAU middleware.  The different CAs provide X.509 certificates to uniquely identify mF2C Agents and infrastructure components within mF2C.  The CAU middleware interacts with the unstrusted CA services over HTTPS to request certificates for candidate Agents.  Trusted infrastructure components need to obtain a certificate and the associate RSA private key from the appropriated trusted CA service.
 
-There are three CAs. They are completely separate from the Fog components eg Cimi, Discovery, Lifecycle, UserManagement and exist on a remote server. They interact only via the network. The CAs issue certificates that are critical for the running of the CAU demo.
+The how-to documentation at  https://github.com/mF2C/certauth/blob/master/src/main/resources/vanilla-ca-howto.pdf provides detailed information on the on the list and usage of the certification service endpoints.
 
 Requirements
 ~~~~~~~~~~~~
 
-A host VM with 4GB of memory, 15GB of disk as a minimum and running Centos 7.4 and Docker 18.03.
-
-The VM is hosted on the Tiscali Engineering Openstack.
-
-Scripts need to be present client-side to run the CAU demo.
-
-Expected configuration
-~~~~~~~~~~~~~~~~~~~~~~
-
-Refer to the documentation for a list of the firewall ports that need to be opened and the firewall rules to implement the port-forwarding.
- https://repository.atosresearch.eu/owncloud/index.php/apps/files/?dir=%2FmF2C%2FWorking%20Folders%2FWP5%20PoC%20integration%2FCA
-
+A host VM with 4GB of memory, 15GB of disk as a minimum and running Centos 7.4 and Docker 18.03.  
+The VM is hosted on the Tiscali Engineering Openstack. 
 
 Domain names and DNS
 ~~~~~~~~~~~~~~~~~~~~
 
-
 The DNS name is registered and published by Tiscali Engineering. Contact Antonio for assistance.
 
-Refer to the documentation at  https://repository.atosresearch.eu/owncloud/index.php/apps/files/?dir=%2FmF2C%2FWorking%20Folders%2FWP5%20PoC%20integration%2FCA for a list of IP addresses and domain names.
+
+Installation requirements and procedures
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The server is deployed as a Docker container.  Refer to the how-to documentation (https://github.com/mF2C/certauth/blob/master/src/main/resources/vanilla-ca-howto.pdf) on the installation requirements and steps to build and deploy the CA application.  Please note that you need to have access to the Engineering box and the items listed in the following section to deploy the application.
 
 
-Passwords, certificates and ssh keys
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CA certificates, private keys and Tomcat scripts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-These are listed in the restricted access documentation and zip files located at https://repository.atosresearch.eu/owncloud/index.php/apps/files/?dir=%2FmF2C%2FWorking%20Folders%2FWP5%20PoC%20integration%2FCA
+These are available from the 'CA credentials' and 'tomcat' folders at https://repository.atosresearch.eu/owncloud/index.php/apps/files/?dir=%2FmF2C%2FWorking%20Folders%2FWP5%20PoC%20integration%2FCA
+
 
 Cau-client component
 ~~~~~~~~~~~~~~~~~~~~
@@ -223,11 +216,7 @@ Installation:
 The component is installed by running the mF2C docker-compose.yml.  
 
 Configuration:
-The cau-client listens on port 46065 for the policy block trigger.  You can change this by amending the value of the 'expose' instruction in the cau-client block in the docker compose.yml file.  See below:
-	
-    expose:
-      - 46065 #replace this value
-
+The cau-client listens on port 46065 for the policy block trigger.  This value is fixed for the IT1 demo.  
 You also need to tell cau-client where the regional CAU and the leader agent CAU are located.  This is done by amending the cau-client block in the docker-compose.yml file, providing values to the CAU_URL and LCAU_URL environemnt variables.  For example:
 
     environment:
