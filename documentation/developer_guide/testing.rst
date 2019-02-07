@@ -149,7 +149,7 @@ Example with all optional fields:
         "exec_type": "compss",
         "exec_ports": [8080],
         "agent_type": "normal",
-        "num_agents": "2",
+        "num_agents": 2,
         "cpu_arch": "x86-64",
         "os": "linux", 
         "memory_min": 1000,
