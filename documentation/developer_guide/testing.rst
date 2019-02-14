@@ -277,7 +277,9 @@ Add a new device
         "ethernetAddress": "[snic(family=<AddressFamily.AF_INET: 2>, address='172.17.0.3', netmask='255.255.0.0', broadcast='172.17.255.255', ptp=None), snic(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:11:00:03', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
         "wifiAddress": "Empty",
         "hwloc": "<xmlString>",
-        "cpuinfo": "<rawCPUinfo>"
+        "cpuinfo": "<rawCPUinfo>",
+        "agentType": "Fog agent",
+        "actuatorInfo": "It has Traffic light"
     }'''
 
 
@@ -297,7 +299,8 @@ Add the device-dynamic info
         "powerRemainingStatus": "30.75885328836425",
         "powerRemainingStatusSeconds": "3817",
         "ethernetAddress": "[snic(family=<AddressFamily.AF_INET: 2>, address='172.17.0.3', netmask='255.255.0.0', broadcast='172.17.255.255', ptp=None), snic(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:11:00:03', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
-        "wifiAddress": "Emp": [1595,8644,16,74,0,0,0,0],
+        "wifiAddress": "Empty",
+        "ethernetThroughputInfo": [1595,8644,16,74,0,0,0,0],
         "wifiThroughputInfo": ["E","m","p","t","y"],
         "myLeaderID": {"href": "device/1"}
     }'''
