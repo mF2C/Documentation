@@ -262,22 +262,24 @@ Add a new device
 
     mf2c-curl-post https://localhost/api/device -d '''
     {
-        "deviceID": "123",
-        "isLeader": false,
-        "os": "Linux-4.13.0-38-generic-x86_64-with-debian-8.10",
-        "arch": "x86_64",
-        "cpuManufacturer": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
-        "physicalCores": 4,
-        "logicalCores": 8,
-        "cpuClockSpeed": "1.8000 GHz",
-        "memory": 7874.2109375,
-        "storage": 234549.5078125,
-        "powerPlugged": true,
-        "networkingStandards": "['eth0', 'lo']",
-        "ethernetAddress": "[snic(family=<AddressFamily.AF_INET: 2>, address='172.17.0.3', netmask='255.255.0.0', broadcast='172.17.255.255', ptp=None), snic(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:11:00:03', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
-        "wifiAddress": "Empty",
-        "hwloc": "<xmlString>",
-        "cpuinfo": "<rawCPUinfo>"
+    'deviceID': 'fd97ac4cf865e108c143c57428f742022f38653f1f4c4166938a3154d7b5818967fd27dae6422a2b1da1ceb8dc9d25f3585ab7b4039c96b5d9ad43acb7dce0ff',
+    'isLeader': False,
+    'os': 'Linux-4.15.0-45-generic-x86_64-with-debian-9.7',
+    'arch': 'x86_64',
+    'cpuManufacturer': 'Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz',
+    'physicalCores': 4,
+    'logicalCores': 8,
+    'cpuClockSpeed': '1.8000 GHz',
+    'memory': 7873.7734375,
+    'storage': 195865.0234375,
+    'powerPlugged': True,
+    'agentType': 'Fog agent',
+    'actuatorInfo': 'Please check your actuator connection',
+    'networkingStandards': "['eth0', 'lo']",
+    'ethernetAddress': "[snicaddr(family=<AddressFamily.AF_INET: 2>, address='172.18.0.14', netmask='255.255.0.0', broadcast='172.18.255.255', ptp=None), snicaddr(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:12:00:0e', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
+    'wifiAddress': 'Empty',
+    'hwloc': '/bin/sh: 1: hwloc-ls: not found\n',
+    'cpuinfo': 'xml info for CPU'
     }'''
 
 
@@ -288,18 +290,20 @@ Add the device-dynamic info
 
     mf2c-curl-post https://localhost/api/device-dynamic -d '''
     {
-        "device": {"href": "device/123"},
-        "ramFree": 4795.15234375,
-        "ramFreePercent": 60.9,
-        "storageFree": 208409.25,
-        "storageFreePercent": 93.6,
-        "cpuFreePercent": 93.5,
-        "powerRemainingStatus": "30.75885328836425",
-        "powerRemainingStatusSeconds": "3817",
-        "ethernetAddress": "[snic(family=<AddressFamily.AF_INET: 2>, address='172.17.0.3', netmask='255.255.0.0', broadcast='172.17.255.255', ptp=None), snic(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:11:00:03', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
-        "wifiAddress": "Emp": [1595,8644,16,74,0,0,0,0],
-        "wifiThroughputInfo": ["E","m","p","t","y"],
-        "myLeaderID": {"href": "device/1"}
+        'device': {'href': 'device/f14de9c3-9221-4f51-84bf-b3836bad601a'},
+        'ramFree': 3060.19140625,
+        'ramFreePercent': 38.9,
+        'storageFree': 168181.26171875,
+        'storageFreePercent': 90.5,
+        'cpuFreePercent': 79.5,
+        'powerRemainingStatus': '39.74431818181818',
+        'powerRemainingStatusSeconds': 'BatteryTime.POWER_TIME_UNLIMITED',
+        'ethernetAddress': "[snicaddr(family=<AddressFamily.AF_INET: 2>, address='172.18.0.14', netmask='255.255.0.0', broadcast='172.18.255.255', ptp=None), snicaddr(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:12:00:0e', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
+        'wifiAddress': 'Empty',
+        'ethernetThroughputInfo': ['13178', '8956', '18', '68', '0', '0', '0', '0'],
+        'wifiThroughputInfo': ['E', 'm', 'p', 't', 'y'],
+        'myLeaderID': {'href': 'device/f14de9c3-9221-4f51-84bf-b3836bad601a'}
+
     }'''
 
 
