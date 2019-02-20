@@ -279,7 +279,7 @@ Add a new device
     'ethernetAddress': "[snicaddr(family=<AddressFamily.AF_INET: 2>, address='172.18.0.14', netmask='255.255.0.0', broadcast='172.18.255.255', ptp=None), snicaddr(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:12:00:0e', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
     'wifiAddress': 'Empty',
     'hwloc': '/bin/sh: 1: hwloc-ls: not found\n',
-    'cpuinfo': 'xml info for CPU'
+    'cpuinfo': 'xml info CPU'
     }'''
 
 
