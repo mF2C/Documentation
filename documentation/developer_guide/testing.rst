@@ -302,9 +302,9 @@ Add the device-dynamic info
         'wifiAddress': 'Empty',
         'ethernetThroughputInfo': ['13178', '8956', '18', '68', '0', '0', '0', '0'],
         'wifiThroughputInfo': ['E', 'm', 'p', 't', 'y'],
-        'sensorType': ["[\"temperature\"]", "[\"humidity\"]"]
-        'sensorModel': ["DHT22"]
-        'sensorConnection': ["{\"baudRate\": 5600, \"gpioPin\": 23}", "{\"baudRate\": 5600}"]
+        'sensorType': ["[\"temperature\"]", "[\"humidity\"]"],
+        'sensorModel': ["DHT22"],
+        'sensorConnection': ["{\"baudRate\": 5600, \"gpioPin\": 23}", "{\"baudRate\": 5600}"],
         'myLeaderID': {'href': 'device/f14de9c3-9221-4f51-84bf-b3836bad601a'}
 
     }'''
