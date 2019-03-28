@@ -9,7 +9,7 @@ CIMI
 ----
 *(these instructions have not been tested in Windows)*
 
-CIMI will be running over HTTPS (through Traefik). 
+CIMI will be running over HTTPS (through Traefik).
 Since this is a development and testing environment, we'll use a special CIMI HTTP header (:code:`slipstream-authn-info:internal ADMIN`)
 to bypass user authentication and authorization, by impersonating *admin*.
 Let's also assume that the TLS certificates in-use were self-signed, thus we'll need :code:`-k`.
@@ -76,7 +76,7 @@ If the SMTP configuration is enabled, you shall receive a user validation email 
 Login
 ~~~~~
 
-You **must have** validated the user before you can login. 
+You **must have** validated the user before you can login.
 To login, simply create a session.
 
 .. code-block:: bash
@@ -151,35 +151,24 @@ Example with all optional fields:
         "agent_type": "normal",
         "num_agents": 2,
         "cpu_arch": "x86-64",
-        "os": "linux", 
+        "os": "linux",
         "memory_min": 1000,
-        "storage_min": 100, 
-        "disk": 100, 
+        "storage_min": 100,
+        "disk": 100,
         "req_resource": ["Location"],
         "opt_resource": ["SenseHat"]
     }'''
 
-Create a service instance
+Launch a service (create a service instance)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
     mf2c-curl-post https://localhost/api/service-instance -d '''
     {
-        "user": {"href": "user/asasdasd"},
-        "service": {"href": "service/asasdasd"},
-        "agreement": {"href": "sla/asdasdasd"},
-        "status": "running",
-        "agents": [
-            {
-            "agent": {"href": "device/testdevice"}, 
-            "port": 8081, 
-            "container_id": "0938afd12323", 
-            "status": "running", 
-            "num_cpus": 3, 
-            "allow": true
-            }
-        ]
+      "service_id": "service/6d1ba52b-4ce7-4333-914f-e434ddeeb591",
+      "user_id": "user/testuser1",
+      "agreement_id": "agreement/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
     }'''
 
 
@@ -190,14 +179,14 @@ Create a "sharing-model" record
 
     mf2c-curl-post https://localhost/api/sharing-model -d '''
     {
-        "description": "example of a sharing model resource instance",
-        "max_apps": 3,
-        "gps_allowed": false,
-        "max_cpu_usage": 1,
-        "max_memory_usage": 1024,
-        "max_storage_usage": 500,
-        "max_bandwidth_usage": 20,
-        "battery_limit": 10
+      "user_id": "user/testuser2",
+      "device_id": "device/c749fcbb-651d-4ae6-877a-125e372398a4",
+      "gps_allowed": false,
+      "max_cpu_usage": 3,
+      "max_memory_usage": 3,
+      "max_storage_usage": 3,
+      "max_bandwidth_usage": 3,
+      "battery_limit": 50
     }'''
 
 
@@ -208,8 +197,11 @@ Create a user profile
 
     mf2c-curl-post https://localhost/api/user-profile -d '''
     {
-        "service_consumer": true,
-        "resource_contributor": false
+      "user_id": "user/testuser2",
+      "device_id": "device/c749fcbb-651d-4ae6-877a-125e372398a4",
+      "service_consumer": true,
+      "resource_contributor": true,
+      "max_apps": 1
     }'''
 
 Create an service level agreement
@@ -349,4 +341,3 @@ Add the service operation report
         "operation": "newMethod",
         "execution_time": 123.32
     }'''
-

@@ -157,24 +157,26 @@ For any workflow to work, the first step is to submit a service to the service m
 
 Lifecycle Management module
 -----------------------------
-The Lifecycle Management component is part of the Platform Manager's Service Orchestration module. It is an internal component responsible for managing the services running in the mF2C clusters. For IT-1 this component will be accessible through *http://lifecycle:46000/api/v1*.
+The Lifecycle Management component is part of the Platform Manager's Service Orchestration module. It is an internal component responsible for managing the services running in the mF2C clusters. For IT-2 this component will be accessible through *http://lifecycle:46000/api/v2*.
 
 Services are based on docker images. Thus, when a service is deployed in one or more agents, the lifecycle creates a docker container in each of them.
 
 Deploy and start a service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. The lifecycle offers different ways for deploying and starting a service in a set of mF2C agents. If the lifecycle is working together with the other mF2C components, then the call should contain only three parameters: the service identifier, a user identifier (the on that generates the call), and the SLA agreement identifier.
+The lifecycle offers different ways for deploying and starting a service in a set of mF2C agents.
+
+1. If the lifecycle is working together with the other mF2C components, then the call should contain only three parameters: the service identifier, a user identifier (the on that generates the call), and the SLA agreement identifier.
 
 .. code-block:: bash
 
     cat >post_service1.json <<EOF
     {
-    "service_id": "service/c6aeb25c-ab2f-4207-8304-1eaf8ebcda6e",
-	  "user_id": "rsucasas",
-	  "agreement_id": "agreement/19e4cf61-6a9b-4d88-9f78-2408d568ed0e"
-	}
+      "service_id": "service/6d1ba52b-4ce7-4333-914f-e434ddeeb591",
+      "user_id": "user/testuser1",
+      "agreement_id": "agreement/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
+    }
     EOF
-    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v1/lifecycle -d @post_service1.json --insecure
+    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v2/lm/service -d @post_service1.json --insecure
 
 2. If the user wants to specify the agents where the service will be deployed, then we need another parameter: a list of agents
 
@@ -182,14 +184,13 @@ Deploy and start a service
 
     cat >post_service2.json <<EOF
     {
-    "service_id": "service/c6aeb25c-ab2f-4207-8304-1eaf8ebcda6e",
-	  "user_id": "rsucasas",
-	  "agreement_id": "agreement/19e4cf61-6a9b-4d88-9f78-2408d568ed0e",
-	  "agents_list": [{"agent_ip": "192.168.252.41"}, {"agent_ip": "192.168.252.42"}]
-	}
+      "service_id": "service/6d1ba52b-4ce7-4333-914f-e434ddeeb591",
+      "user_id": "user/testuser1",
+      "agreement_id": "agreement/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
+      "agents_list": [{"agent_ip": "192.168.252.41"}, {"agent_ip": "192.168.252.42"}]
+    }
     EOF
-    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v1/lifecycle -d @post_service2.json --insecure
-
+    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v2/lm/service -d @post_service2.json --insecure
 
 3. Finally, if the user wants to specify the service to be deployed, then we need to include the service content in the call to the lifecycle:
 
@@ -198,41 +199,28 @@ Deploy and start a service
     cat >post_service3.json <<EOF
     {
     "service": {
-		"id": "service/9fbfd7cd-4154-450e-aeab-7a6b84153206",
-		"name": "app_compss_test",
-		"description": "app-compss Service",
-		"exec": "mf2c/compss-test:latest",
-		"resourceURI": "/app-compss",
-		"category": {
-			"cpu": "low",
-			"memory": "low",
-			"storage": "low",
-			"inclinometer": false,
-			"temperature": false,
-			"jammer": false,
-			"location": false,
-			"accelerometer": false,
-			"humidity": false,
-			"battery_level": false,
-			"door_sensor": false,
-			"pump_sensor": false,
-			"air_pressure": false,
-			"ir_motion": false
-		},
-		"exec_type": "compss",
-		"exec_ports": [
-  			46100,
-  			46101,
-  			46102,
-  			46103
-  		]
-  	},
-	  "user_id": "rsucasas",
-	  "agreement_id": "agreement/19e4cf61-6a9b-4d88-9f78-2408d568ed0e",
-	  "agents_list": [{"agent_ip": "192.168.252.41"}, {"agent_ip": "192.168.252.42"}]
-	}
+      "name": "nginx-server-mf2c",
+      "description": "nginx running on docker - mf2c version",
+      "exec": "nginx",
+      "os": "linux",
+      "disk": 100,
+      "category": 0,
+      "num_agents": 2,
+      "exec_type": "docker",
+      "exec_ports": [80],
+      "agent_type": "normal",
+      "cpu_arch": "x86-64",
+      "memory_min": 1000,
+      "storage_min": 100,
+      "req_resource": [],
+      "opt_resource": []
+    },
+    "user_id": "user/testuser1",
+    "agreement_id": "agreement/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
+    "agents_list": [{"agent_ip": "192.168.252.41"}, {"agent_ip": "192.168.252.42"}]
+    }
     EOF
-    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v1/lifecycle -d @post_service3.json --insecure
+    curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v2/lm/service -d @post_service3.json --insecure
 
 If the service is successfully deployed, then the response should contain the resulting service instance object:
 
@@ -314,26 +302,24 @@ Stop and start a service instance
 
 .. code-block:: bash
 
-    cat >put_stop_service_instance.json <<EOF
-    {
-    "service_instance_id":"9a22a9a7-6a9c-40e9-b2cf-983dde76293e",
-	  "operation":"stop"
-	  }
-    EOF
-    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v1/lifecycle -d @put_stop_service_instance.json --insecure
+  cat >put_stop_service_instance.json <<EOF
+  {
+    "operation":"stop"
+  }
+  EOF
+  curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7 -d @put_stop_service_instance.json --insecure
 
 
 2. And it can be restarted again with the following command:
 
 .. code-block:: bash
 
-    cat >put_start_service_instance.json <<EOF
-    {
-    "service_instance_id":"9a22a9a7-6a9c-40e9-b2cf-983dde76293e",
-	  "operation":"start"
-	  }
-    EOF
-    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v1/lifecycle -d @put_start_service_instance.json --insecure
+  cat >put_start_service_instance.json <<EOF
+  {
+    "operation":"start"
+  }
+  EOF
+  curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7 -d @put_start_service_instance.json --insecure
 
 
 Sart a job (COMPSs services)
@@ -347,14 +333,12 @@ Services based on COMPSs can also run specific jobs in the mF2C agents. The life
 
     cat >put_start_job.json <<EOF
     {
-    "service_instance_id":"9a22a9a7-6a9c-40e9-b2cf-983dde76293e",
-  	"operation":"start-job",
-  	"parameters":"<ceiClass>es.bsc.compss.test.TestItf</ceiClass><className>es.bsc.compss.test.Test</className><methodName>main</methodName><parameters><params paramId='0'><direction>IN</direction><type>OBJECT_T</type><array paramId='0'><componentClassname>java.lang.String</componentClassname><values><element paramId='0'><className>java.lang.String</className><value xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xsi:type='xs:string'>3</value></element></values></array></params></parameters>"
+    	"operation":"start-job",
+    	"parameters":"<ceiClass>es.bsc.compss.test.TestItf</ceiClass><className>es.bsc.compss.test.Test</className><methodName>main</methodName><parameters><params paramId='0'><direction>IN</direction><type>OBJECT_T</type><array paramId='0'><componentClassname>java.lang.String</componentClassname><values><element paramId='0'><className>java.lang.String</className><value xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xsi:type='xs:string'>3</value></element></values></array></params></parameters>"
 	  }
     EOF
-    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v1/lifecycle -d @put_start_job.json --insecure
+    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7 -d @put_start_job.json --insecure
 
-For IT-1 we need to pass the lifecycle part of the XML needed ('parameters') to call the COMPSs REST API.
 
 Terminate a service instance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -365,12 +349,7 @@ The call to terminate a service instance, stops and removes the service instance
 
 .. code-block:: bash
 
-    cat >delete_service_instance.json <<EOF
-    {
-    "service_instance_id":"9a22a9a7-6a9c-40e9-b2cf-983dde76293e"
-	  }
-    EOF
-    curl -H "Content-Type: application/json" -X DELETE https://lifecycle:46000/api/v1/lifecycle -d @delete_service_instance.json --insecure
+    curl -H "Content-Type: application/json" -X DELETE https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7 --insecure
 
 
 Get service instances
@@ -380,24 +359,24 @@ Get service instances
 
 .. code-block:: bash
 
-    curl https://lifecycle:46000/api/v1/lifecycle/service-instance/all --insecure
+    curl https://lifecycle:46000/api/v2/lm/service-instance/all --insecure
 
 
 2. To get a specific service instance:
 
 .. code-block:: bash
 
-    curl https://lifecycle:46000/api/v1/lifecycle/service-instance/4e1ab919-7a02-4260-993a-e0f5382ea580 --insecure
+    curl https://lifecycle:46000/api/v2/lm/service-instance/4e1ab919-7a02-4260-993a-e0f5382ea580 --insecure
 
 Landscaper module
 -----------------------------
-The Landscaper component is part of the Platform Manager's Service Orchestration module. 
+The Landscaper component is part of the Platform Manager's Service Orchestration module.
 It constructs a graph model of the computing infrastructure. The graph details what service are running on what virtual infrastructure, and on which physical hosts that virtual infrastructure is running on.
 For IT-1, the landscaper is accessible through *http://localhost:46020/
 
 Get full graph of system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This method returns the entire graph of all infrastructure, containers and services currently deployed. It can be used to get a dump from the database 
+This method returns the entire graph of all infrastructure, containers and services currently deployed. It can be used to get a dump from the database
 
 .. code-block:: bash
 
@@ -406,7 +385,7 @@ This method returns the entire graph of all infrastructure, containers and servi
 
 Get full graph of system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This method returns the entire graph of all infrastructure, containers and services currently deployed. It can be used to get a dump from the database 
+This method returns the entire graph of all infrastructure, containers and services currently deployed. It can be used to get a dump from the database
 
 .. code-block:: bash
 
@@ -429,9 +408,9 @@ Stores the geo-location as tags to selected nodes in the database. Useful to tra
 
 .. code-block:: bash
     cat >geo_location.json <<EOF
-    { [ 
+    { [
     	{
-    	"id": "<node_id>", 
+    	"id": "<node_id>",
     	"geo": "<geo_location_info"
     	}
       ]
