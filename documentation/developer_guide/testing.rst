@@ -264,12 +264,8 @@ Add a new device
     'cpuClockSpeed': '1.8000 GHz',
     'memory': 7873.7734375,
     'storage': 195865.0234375,
-    'powerPlugged': True,
     'agentType': 'Fog agent',
-    'actuatorInfo': 'Please check your actuator connection',
     'networkingStandards': "['eth0', 'lo']",
-    'ethernetAddress': "[snicaddr(family=<AddressFamily.AF_INET: 2>, address='172.18.0.14', netmask='255.255.0.0', broadcast='172.18.255.255', ptp=None), snicaddr(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:12:00:0e', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
-    'wifiAddress': 'Empty',
     'hwloc': '/bin/sh: 1: hwloc-ls: not found\n',
     'cpuinfo': 'xml info CPU'
     }'''
@@ -290,13 +286,13 @@ Add the device-dynamic info
         'cpuFreePercent': 79.5,
         'powerRemainingStatus': '39.74431818181818',
         'powerRemainingStatusSeconds': 'BatteryTime.POWER_TIME_UNLIMITED',
+        'powerPlugged': True,
         'ethernetAddress': "[snicaddr(family=<AddressFamily.AF_INET: 2>, address='172.18.0.14', netmask='255.255.0.0', broadcast='172.18.255.255', ptp=None), snicaddr(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:12:00:0e', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
         'wifiAddress': 'Empty',
         'ethernetThroughputInfo': ['13178', '8956', '18', '68', '0', '0', '0', '0'],
         'wifiThroughputInfo': ['E', 'm', 'p', 't', 'y'],
-        'sensorType': ["[\"temperature\"]", "[\"humidity\"]"],
-        'sensorModel': ["DHT22"],
-        'sensorConnection': ["{\"baudRate\": 5600, \"gpioPin\": 23}", "{\"baudRate\": 5600}"],
+        'actuatorInfo': 'Please check your actuator connection',
+        'sensors': [{:sensorType "mytype", :sensorModel "mymodel", :sensorConnection "myconn"}],
         'myLeaderID': {'href': 'device/f14de9c3-9221-4f51-84bf-b3836bad601a'}
 
     }'''
