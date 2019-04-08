@@ -261,7 +261,7 @@ Add a new device
     "cpuManufacturer": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
     "physicalCores": 4,
     "logicalCores": 8,
-    "cpuClockSpeed": '1.8000 GHz',
+    "cpuClockSpeed": "1.8000 GHz",
     "memory": 7873.7734375,
     "storage": 195865.0234375,
     "agentType": "Fog agent",
