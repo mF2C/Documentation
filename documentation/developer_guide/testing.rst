@@ -255,7 +255,7 @@ Add a new device
     mf2c-curl-post https://localhost/api/device -d '''
     {
     "deviceID": "fd97ac4cf865e108c143c57428f742022f38653f1f4c4166938a3154d7b5818967fd27dae6422a2b1da1ceb8dc9d25f3585ab7b4039c96b5d9ad43acb7dce0ff",
-    "isLeader": False,
+    "isLeader": false,
     "os": "Linux-4.15.0-45-generic-x86_64-with-debian-9.7",
     "arch": "x86_64",
     "cpuManufacturer": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz",
@@ -286,7 +286,7 @@ Add the device-dynamic info
         "cpuFreePercent": 79.5,
         "powerRemainingStatus": "39.74431818181818",
         "powerRemainingStatusSeconds": "BatteryTime.POWER_TIME_UNLIMITED",
-        "powerPlugged": True,
+        "powerPlugged": true,
         "ethernetAddress": "[snicaddr(family=<AddressFamily.AF_INET: 2>, address='172.18.0.14', netmask='255.255.0.0', broadcast='172.18.255.255', ptp=None), snicaddr(family=<AddressFamily.AF_PACKET: 17>, address='02:42:ac:12:00:0e', netmask=None, broadcast='ff:ff:ff:ff:ff:ff', ptp=None)]",
         "wifiAddress": "Empty",
         "ethernetThroughputInfo": ["13178", "8956", "18", "68", "0", "0", "0", "0"],
