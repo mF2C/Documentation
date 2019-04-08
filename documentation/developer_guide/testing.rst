@@ -265,7 +265,7 @@ Add a new device
     "memory": 7873.7734375,
     "storage": 195865.0234375,
     "agentType": "Fog agent",
-    "networkingStandards": "["eth0", "lo"]",
+    "networkingStandards": "['eth0', 'lo']",
     "hwloc": "/bin/sh: 1: hwloc-ls: not found\n",
     "cpuinfo": "xml info CPU"
     }'''
