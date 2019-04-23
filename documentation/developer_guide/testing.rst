@@ -292,9 +292,7 @@ Add the device-dynamic info
         "ethernetThroughputInfo": ["13178", "8956", "18", "68", "0", "0", "0", "0"],
         "wifiThroughputInfo": ["E", "m", "p", "t", "y"],
         "actuatorInfo": "Please check your actuator connection",
-        "sensors": [{"sensorType": "Temperature", "sensorModel": "DHT22", "sensorConnection": "{\"baudRate\": 5600}"}],
-        "myLeaderID": {"href": "device/f14de9c3-9221-4f51-84bf-b3836bad601a"}
-
+        "sensors": [{"sensorType": "Temperature", "sensorModel": "DHT22", "sensorConnection": "{\"baudRate\": 5600}"}]
     }'''
 
 
