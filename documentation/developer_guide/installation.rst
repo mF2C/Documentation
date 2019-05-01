@@ -178,9 +178,9 @@ having to re-deploy the full stack, simply run:
 Use of the Certificate Authority server
 ----------------------------------------
 
-The Certification Authority (https://github.com/mF2C/certauth) is a JAVA Jersey ReST application deployed on a Tomcat container.  It provides 8 different certification CA endpoints.  The CAs are independent components that exist independently to the mF2C Agents and fog clusters as well as the CAU middleware.  The different CAs provide X.509 certificates to uniquely identify mF2C Agents and infrastructure components within mF2C.  The CAU middleware interacts with the unstrusted CA services over HTTPS to request certificates for candidate Agents.  Trusted infrastructure components need to obtain a certificate and the associate RSA private key from the appropriated trusted CA service.
+The Certification Authority (https://github.com/mF2C/certauth) is a JAVA Jersey ReST application deployed on a Tomcat container.  It provides 8 different certification CA endpoints.  The CAs are independent components that exist independently to the mF2C Agents and fog clusters as well as the CAU middleware.  The different CAs provide X.509 certificates to uniquely identify mF2C Agents and infrastructure components within mF2C.  The CAU middleware interacts with the unstrusted CA services over HTTPS to request certificates for candidate Agents.  Trusted infrastructure components need to obtain a certificate and the associate RSA private key from the appropriate trusted CA service.
 
-The how-to documentation at  https://github.com/mF2C/certauth/blob/master/src/main/resources/vanilla-ca-howto.pdf provides detailed information on the on the list and usage of the certification service endpoints.
+The how-to documentation at  https://github.com/mF2C/certauth/blob/master/src/main/resources/vanilla-ca-howto.pdf provides detailed information on the list and usage of the certification service endpoints.
 
 Requirements
 ~~~~~~~~~~~~
