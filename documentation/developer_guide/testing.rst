@@ -159,16 +159,28 @@ Example with all optional fields:
         "opt_resource": ["SenseHat"]
     }'''
 
-Launch a service (create a service instance)
+Create a service instance
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
     mf2c-curl-post https://localhost/api/service-instance -d '''
     {
-      "service_id": "service/6d1ba52b-4ce7-4333-914f-e434ddeeb591",
-      "user_id": "user/testuser1",
-      "agreement_id": "agreement/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
+       "user": "testuser",
+	   "device_id": "3dfe332d-dbd6-49c0-9788-56457a6d781b",
+	   "device_ip": "192.169.1.41",
+	   "parent_device_id": "11fe332d-dbd6-49c0-9788-56457a6d78cc",
+	   "parent_device_ip": "192.169.252.42",
+	   "service": "a5fe332d-dbd6-4ff0-9788-56457a6d7813",
+	   "agreement": "15fe311d-dbd6-4ff0-9711-56457a6d7819",
+	   "status": "waiting",
+	   "service_type": "swarm",
+	   "agents": [
+		   {"compss_app_id": "523242342121", "url": "192.168.1.41", "ports": [8081], "container_id": "10asd673f", "status": "waiting",
+			   "device_id": "3dfe332d-dbd6-49c0-9788-56457a6d781b", "allow": true, "master_compss": true, "app_type": "swarm"},
+		   {"compss_app_id": "", "url": "192.168.1.42", "ports": [8081], "container_id": "99asd673f", "status": "waiting",
+			   "device_id": "3dfe332d-d556-49c0-9788-56457a6d7889", "allow": true, "master_compss": false, "app_type": "swarm"}
+	  ]
     }'''
 
 

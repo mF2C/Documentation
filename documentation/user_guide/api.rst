@@ -165,15 +165,14 @@ Deploy and start a service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The lifecycle offers different ways for deploying and starting a service in a set of mF2C agents.
 
-1. If the lifecycle is working together with the other mF2C components, then the call should contain only three parameters: the service identifier, a user identifier (the on that generates the call), and the SLA agreement identifier.
+1. If the lifecycle is working together with the other mF2C components, then the call should contain only two parameters: the service identifier, and the SLA template identifier.
 
 .. code-block:: bash
 
     cat >post_service1.json <<EOF
     {
       "service_id": "service/6d1ba52b-4ce7-4333-914f-e434ddeeb591",
-      "user_id": "user/testuser1",
-      "agreement_id": "agreement/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
+      "sla_template": "sla_template/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
     }
     EOF
     curl -H "Content-Type: application/json" -X POST https://lifecycle:46000/api/v2/lm/service -d @post_service1.json --insecure
@@ -185,8 +184,7 @@ The lifecycle offers different ways for deploying and starting a service in a se
     cat >post_service2.json <<EOF
     {
       "service_id": "service/6d1ba52b-4ce7-4333-914f-e434ddeeb591",
-      "user_id": "user/testuser1",
-      "agreement_id": "agreement/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
+      "sla_template": "sla_template/a7a30e2b-2ba1-4370-a1d4-af85c30d8713",
       "agents_list": [{"agent_ip": "192.168.252.41"}, {"agent_ip": "192.168.252.42"}]
     }
     EOF
@@ -199,24 +197,24 @@ The lifecycle offers different ways for deploying and starting a service in a se
     cat >post_service3.json <<EOF
     {
     "service": {
-      "name": "nginx-server-mf2c",
-      "description": "nginx running on docker - mf2c version",
-      "exec": "nginx",
-      "os": "linux",
-      "disk": 100,
-      "category": 0,
-      "num_agents": 2,
-      "exec_type": "docker",
-      "exec_ports": [80],
-      "agent_type": "normal",
-      "cpu_arch": "x86-64",
-      "memory_min": 1000,
-      "storage_min": 100,
-      "req_resource": [],
-      "opt_resource": []
-    },
-    "user_id": "user/testuser1",
-    "agreement_id": "agreement/a7a30e2b-2ba1-4370-a1d4-af85c30d8713"
+		"name": "nginx",
+		"description": "nginx server",
+		"exec": "nginx",
+	    "sla_templates": ["sla-template/083e1759-4b66-4295-b187-37997feec013"],
+		"os": "linux",
+		"disk": 100,
+		"category": 0,
+		"num_agents": 1,
+		"exec_type": "docker",
+		"exec_ports": [80],
+		"agent_type": "normal",
+		"cpu_arch": "x86-64",
+		"memory_min": 1000,
+		"storage_min": 100,
+		"req_resource": [],
+		"opt_resource": []
+	},
+    "sla_template": "sla_template/a7a30e2b-2ba1-4370-a1d4-af85c30d8713",
     "agents_list": [{"agent_ip": "192.168.252.41"}, {"agent_ip": "192.168.252.42"}]
     }
     EOF
@@ -333,11 +331,15 @@ Services based on COMPSs can also run specific jobs in the mF2C agents. The life
 
     cat >put_start_job.json <<EOF
     {
-    	"operation":"start-job",
-    	"parameters":"<ceiClass>es.bsc.compss.test.TestItf</ceiClass><className>es.bsc.compss.test.Test</className><methodName>main</methodName><parameters><params paramId='0'><direction>IN</direction><type>OBJECT_T</type><array paramId='0'><componentClassname>java.lang.String</componentClassname><values><element paramId='0'><className>java.lang.String</className><value xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xs='http://www.w3.org/2001/XMLSchema' xsi:type='xs:string'>3</value></element></values></array></params></parameters>"
-	  }
+		"operation":"start-job",
+		"ceiClass":"es.bsc.compss.agent.test.TestItf",
+		"className":"es.bsc.compss.agent.test.Test",
+		"hasResult":false,
+		"methodName":"main",
+		"parameters":" <params paramId=\"0\"> <direction>IN</direction> <stream>UNSPECIFIED</stream> <type>OBJECT_T</type> <array paramId=\"0\"> <componentClassname>java.lang.String</componentClassname> <values> <element paramId=\"0\"> <className>java.lang.String</className> <value xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">3</value> </element> </values> </array> </params>"
+	}
     EOF
-    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7 -d @put_start_job.json --insecure
+    curl -H "Content-Type: application/json" -X PUT https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7/compss -d @put_start_job.json --insecure
 
 
 Terminate a service instance
