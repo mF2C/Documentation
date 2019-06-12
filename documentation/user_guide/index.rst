@@ -8,3 +8,5 @@ This is the user guide
    :hidden:
 
    api.rst
+   sensor-manager.rst
+
