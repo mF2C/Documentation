@@ -2,8 +2,22 @@
 
 Public documentation for the mF2C System
 
-This documentation includes both the developer and user guide for the mF2C System developed in https://github.com/mF2C.
+This documentation includes both the developer and user guide for the 
+mF2C System developed in https://github.com/mF2C.
 
-You can browse the rendered documentation on ReadTheDocs.org.
+You can browse the rendered documentation on 
+[https://mf2c-project.readthedocs.io/](https://mf2c-project.readthedocs.io/).
 
-You can build the documentation locally by checking out this repository and running the command `make html`. The root of the generated documentation will appear in build/html/index.html.
+## Building
+
+Install sphinx and the ReadTheDocs theme via pip, then run `make html`.
+
+```
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+make html
+```
+
+The documentation will be generated in `_build/html/index.html`.
+
