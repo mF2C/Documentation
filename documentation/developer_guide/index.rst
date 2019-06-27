@@ -9,5 +9,6 @@ This is the developer guide
 
    cloud_agent.rst
    installation.rst
+   cluster_creation.rst
    testing.rst
    credentials.rst
