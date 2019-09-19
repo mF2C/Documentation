@@ -11,24 +11,23 @@ Installing the mF2C System
 .. code-block:: bash
 
     git clone https://github.com/mF2C/mF2C.git
-    cd mF2C/linux
-    
+    cd mF2C/docker-compose
+    sudo ./install.sh
+
+To check the status of the mF2C system:
+
+.. code-block:: bash
+    sudo ./install.sh -s
+
+To stop the agent:
+
+.. code-block:: bash
+    sudo ./install.sh -S
     
 
 Installing a Leader
 ~~~~~~~~~~~~~~~~~~~
 
-**Prerequisites for the policies module:**
-
-One of the responsibilities of this module is to provide the execution of the strategy for the Leader Failure, by selecting a backup. The static list of allowed devices to become a backup by the user must be provided before executing the agent. You should create an environment variable adding the topology like the following line:
-
-.. code-block:: bach
-
-	export "ALLOWED_BACKUPS=[(123,'192.168.5.2'),(456,'192.168.5.4')]"
-
-Here, you should provide for each allowed backup, an integer to identify internally the agent and the IP address, each device surrounded with parenthesis and the IP address with single quoting. An empty topology forces the Leader to not select any backup.
-
-*This configuration can be applied to a regular agent aswell. If the agent becomes a leader due a leader failure, the provided topology is used to select the new backup*
 
 **Prerequisites for the discovery module:**
 
@@ -38,13 +37,13 @@ A device with a wireless card that supports "master mode" (i.e. that can act as 
 
     sudo iw list
     
-Then, the following script should be run as follows to start the agent with the "leader" role:
+Then, the installation script should be run as follows to start the agent with the "leader" role:
 
 .. code-block:: bash
 
-    ./mf2c-deployment.sh --isLeader
+    sudo ./install.sh -L
     
-As far as the discovery module is concerned, this script grabs the name of the wireless interface to be used. It then makes sure the discovery container is run with the --cap-add=NET_ADMIN, since network admin capabilities are needed to access the wireless interface of the host machine. It also programmatically associates the physical wireless interface to the newly created container. Finally, the wireless interface is brought up within the container.
+As far as the discovery module is concerned, the installation script grabs the name of the wireless interface to be used. It then makes sure the discovery container is run with the --cap-add=NET_ADMIN, since network admin capabilities are needed to access the wireless interface of the host machine. It also programmatically associates the physical wireless interface to the newly created container. Note that Discovery is attached to the host network.
 
 **Prerequisites for the data management module:**
 
@@ -61,22 +60,11 @@ To achieve this behaviour, you should modify the `.env` file adding the IP addre
 Installing a regular agent
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Prerequisites for the policies module:**
-
-If the agent becomes a leader due a leader failure, the provided topology is used to select the new backup. 
-
-One of the responsibilities of this module is to provide the execution of the strategy for the Leader Failure, by selecting a backup. The static list of allowed devices to become a backup by the user must be provided before executing the agent. You should create an environment variable adding the topology like the following line:
+By default, the installation script will start a normal agent.
 
 .. code-block:: bash
 
-	export "ALLOWED_BACKUPS=[(123,'192.168.5.2'),(456,'192.168.5.4')]"
-
-Here, you should provide for each allowed backup, an integer to identify internally the agent and the IP address, each device surrounded with parenthesis and the IP address with single quoting. An empty topology forces the Leader to not select any backup.
-
-
-.. code-block:: bash
-
-    ./mf2c-deployment.sh
+    sudo ./install.sh
 
 
 **Prerequisites for the data management module:**
