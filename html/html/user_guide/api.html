@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API &mdash; mF2C 1.0 (2018-03-21) documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> mF2C
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mF2C/docs/index.html">New</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">mF2C</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/user_guide/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<p>The mF2C system is equipped with a RESTful (HTTP) API for the management of infrastructure resources.
+This API is based on the Cloud Infrastructure Management Interface (<a class="reference external" href="https://www.dmtf.org/sites/default/files/standards/documents/DSP0263_2.0.0.pdf">CIMI</a>) specification from DMTF.</p>
+<p>The CIMI standard defined patterns for all the usual database actions: Search (or Query), Create, Read, Update, and Delete (SCRUD).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 27%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>HTTP Method</p></th>
+<th class="head"><p>Target</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Search</p></td>
+<td><p>GET or PUT</p></td>
+<td><p>resource collection</p></td>
+</tr>
+<tr class="row-odd"><td><p>Add (create)</p></td>
+<td><p>POST</p></td>
+<td><p>resource collection</p></td>
+</tr>
+<tr class="row-even"><td><p>Read</p></td>
+<td><p>GET</p></td>
+<td><p>resource</p></td>
+</tr>
+<tr class="row-odd"><td><p>Edit (update)</p></td>
+<td><p>PUT</p></td>
+<td><p>resource</p></td>
+</tr>
+<tr class="row-even"><td><p>Delete</p></td>
+<td><p>DELETE</p></td>
+<td><p>resource</p></td>
+</tr>
+</tbody>
+</table>
+<p>The mF2C API implementation has been adopted from the open source implementation used in <a class="reference external" href="http://ssapi.sixsq.com/#cimi-api">SlipStream</a>.</p>
+<p><strong>At the moment of writing this documentation, other mF2C RESTful APIs are also being exposed to the users,
+to facilitate the ongoing developments.</strong></p>
+<div class="section" id="cimi">
+<h2>CIMI<a class="headerlink" href="#cimi" title="Permalink to this headline">¶</a></h2>
+<p>CIMI in the entry point for all users and internal components to interact with the mF2C system resources.
+For the sake of simplicity, let’s assume CIMI is running at <em>https://cimi</em>.</p>
+<div class="section" id="entry-point">
+<h3>Entry Point<a class="headerlink" href="#entry-point" title="Permalink to this headline">¶</a></h3>
+<p>To allow the self-discovery of the existing system resources and allowed operations and requests, CIMI
+provides a public entry-point at <em>https://cimi/api/cloud-entry-point</em>.</p>
+</div>
+<div class="section" id="create-a-user">
+<h3>Create a user<a class="headerlink" href="#create-a-user" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>create a regular user <em>testuser</em> with password <em>testpassword</em></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;addRegularUser.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">    &quot;userTemplate&quot;: {</span>
+<span class="s">        &quot;href&quot;: &quot;user-template/self-registration&quot;,</span>
+<span class="s">        &quot;password&quot;: &quot;testpassword&quot;,</span>
+<span class="s">        &quot;passwordRepeat&quot; : &quot;testpassword&quot;,</span>
+<span class="s">        &quot;emailAddress&quot;: &quot;your_email@&quot;,</span>
+<span class="s">        &quot;username&quot;: &quot;testuser&quot;</span>
+<span class="s">    }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+curl -XPOST -k -H <span class="s2">&quot;Content-type: application/json&quot;</span> https://cimi/api/user -d @addRegularUser.json
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>an email will be sent to you (if running in test mode, then <strong>you might have to check your SPAM folder</strong>). Copy the API address in that email, and paste it in your browser. Ex: <em>https://cimi/api/CALLBACK_ENDPOINT</em>.</p></li>
+<li><p>login as <em>testuser</em></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;regularUser.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">    &quot;sessionTemplate&quot;: {</span>
+<span class="s">        &quot;href&quot;: &quot;session-template/internal&quot;,</span>
+<span class="s">        &quot;username&quot;: &quot;testuser&quot;,</span>
+<span class="s">        &quot;password&quot;: &quot;testpassword&quot;</span>
+<span class="s">    }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+curl -XPOST https://cimi/api/session -d @regularUser.json -H <span class="s1">&#39;content-type: application/json&#39;</span> --cookie-jar ~/cookies -b ~/cookies -sS <span class="c1"># use -k if running in test mode</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-an-existing-resource-collection">
+<h3>Get an existing resource collection<a class="headerlink" href="#get-an-existing-resource-collection" title="Permalink to this headline">¶</a></h3>
+<p>Let’s say we want to get a list of all the events registered in the database (the ones we have access to, and assuming the CIMI resource <em>events</em> exists):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -XGET https://cimi/api/event --cookie-jar ~/cookies -b ~/cookies -sS
+</pre></div>
+</div>
+</div>
+<div class="section" id="filter-for-a-specific-dataset">
+<h3>Filter for a specific dataset<a class="headerlink" href="#filter-for-a-specific-dataset" title="Permalink to this headline">¶</a></h3>
+<p>CIMI provides mechanisms to search for data based on a filter. To provided grammar looks like the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># note that &lt;***&gt; must be replaced</span>
+curl -XGET <span class="s1">&#39;https://cimi/api/event?$filter=&lt;AttrName&gt;=&quot;&lt;Value&gt;&quot;&amp;$filter=&lt;AttrName2&gt;&lt;=&lt;Value2&gt;&amp;$orderby=&lt;AttrName3&gt;:desc&#39;</span> --cookie-jar ~/cookies -b ~/cookies -sS
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-a-specific-resource">
+<h3>Delete a specific resource<a class="headerlink" href="#delete-a-specific-resource" title="Permalink to this headline">¶</a></h3>
+<p>Let’s delete our own session:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -XDELETE https://cimi/api/session/&lt;SessionID&gt; --cookie-jar ~/cookies -b ~/cookies -sS
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="service-manager">
+<h2>Service Manager<a class="headerlink" href="#service-manager" title="Permalink to this headline">¶</a></h2>
+<p>The Service Manager is an internal component of the mF2C system that will not be exposed. However, in the current development state and for testing purposes, it is accessible through <em>http://service-manager:46200</em>.</p>
+<div class="section" id="service-registration">
+<h3>Service registration<a class="headerlink" href="#service-registration" title="Permalink to this headline">¶</a></h3>
+<p>For any workflow to work, the first step is to submit a service to the service manager:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;service.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">      &quot;name&quot;: &quot;hello-world&quot;,</span>
+<span class="s">      &quot;description&quot;: &quot;Hello World Service&quot;,</span>
+<span class="s">      &quot;resourceURI&quot;: &quot;/hello-world&quot;,</span>
+<span class="s">      &quot;exec&quot;: &quot;hello-world&quot;,</span>
+<span class="s">      &quot;exec_type&quot;: &quot;docker&quot;,</span>
+<span class="s">      &quot;exec_ports&quot;: [8080, 8081],</span>
+<span class="s">      &quot;category&quot;: {</span>
+<span class="s">        &quot;cpu&quot;: &quot;low&quot;,</span>
+<span class="s">        &quot;memory&quot;: &quot;low&quot;,</span>
+<span class="s">        &quot;storage&quot;: &quot;low&quot;,</span>
+<span class="s">        &quot;disk&quot;: &quot;low&quot;,</span>
+<span class="s">        &quot;network&quot;: &quot;low&quot;,</span>
+<span class="s">        &quot;inclinometer&quot;: false,</span>
+<span class="s">        &quot;temperature&quot;: false,</span>
+<span class="s">        &quot;jammer&quot;: false,</span>
+<span class="s">        &quot;location&quot;: false,</span>
+<span class="s">        &quot;battery_level&quot;: true,</span>
+<span class="s">        &quot;door_sensor&quot;: true,</span>
+<span class="s">        &quot;pump_sensor&quot;: true,</span>
+<span class="s">        &quot;accelerometer&quot;: true,</span>
+<span class="s">        &quot;humidity&quot;: true,</span>
+<span class="s">        &quot;air_pressure&quot;: true,</span>
+<span class="s">        &quot;ir_motion&quot;: true</span>
+<span class="s">      }</span>
+<span class="s">    }</span>
+<span class="s">EOF</span>
+curl -XPOST -k http://service-manager:46200/api/service-management/categorizer -d @service.json -H <span class="s2">&quot;Content-type: application/json&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="lifecycle-management-module">
+<h2>Lifecycle Management module<a class="headerlink" href="#lifecycle-management-module" title="Permalink to this headline">¶</a></h2>
+<p>The Lifecycle Management component is part of the Platform Manager’s Service Orchestration module. It is an internal component responsible for managing the services running in the mF2C clusters. For IT-2 this component will be accessible through <em>http://lifecycle:46000/api/v2</em>.</p>
+<p>Services are based on docker images. Thus, when a service is deployed in one or more agents, the lifecycle creates a docker container in each of them.</p>
+<div class="section" id="deploy-and-start-a-service">
+<h3>Deploy and start a service<a class="headerlink" href="#deploy-and-start-a-service" title="Permalink to this headline">¶</a></h3>
+<p>The lifecycle offers different ways for deploying and starting a service in a set of mF2C agents.</p>
+<ol class="arabic simple">
+<li><p>If the lifecycle is working together with the other mF2C components, then the call should contain only two parameters: the service identifier, and the SLA template identifier.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;post_service1.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">  &quot;service_id&quot;: &quot;service/6d1ba52b-4ce7-4333-914f-e434ddeeb591&quot;,</span>
+<span class="s">  &quot;sla_template&quot;: &quot;sla_template/a7a30e2b-2ba1-4370-a1d4-af85c30d8713&quot;</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+curl -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -X POST https://lifecycle:46000/api/v2/lm/service -d @post_service1.json --insecure
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>If the user wants to specify the agents where the service will be deployed, then we need another parameter: a list of agents</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;post_service2.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">  &quot;service_id&quot;: &quot;service/6d1ba52b-4ce7-4333-914f-e434ddeeb591&quot;,</span>
+<span class="s">  &quot;sla_template&quot;: &quot;sla_template/a7a30e2b-2ba1-4370-a1d4-af85c30d8713&quot;,</span>
+<span class="s">  &quot;agents_list&quot;: [{&quot;agent_ip&quot;: &quot;192.168.252.41&quot;}, {&quot;agent_ip&quot;: &quot;192.168.252.42&quot;}]</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+curl -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -X POST https://lifecycle:46000/api/v2/lm/service -d @post_service2.json --insecure
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Finally, if the user wants to specify the service to be deployed, then we need to include the service content in the call to the lifecycle:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;post_service3.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">&quot;service&quot;: {</span>
+<span class="s">            &quot;name&quot;: &quot;nginx&quot;,</span>
+<span class="s">            &quot;description&quot;: &quot;nginx server&quot;,</span>
+<span class="s">            &quot;exec&quot;: &quot;nginx&quot;,</span>
+<span class="s">        &quot;sla_templates&quot;: [&quot;sla-template/083e1759-4b66-4295-b187-37997feec013&quot;],</span>
+<span class="s">            &quot;os&quot;: &quot;linux&quot;,</span>
+<span class="s">            &quot;disk&quot;: 100,</span>
+<span class="s">            &quot;category&quot;: 0,</span>
+<span class="s">            &quot;num_agents&quot;: 1,</span>
+<span class="s">            &quot;exec_type&quot;: &quot;docker&quot;,</span>
+<span class="s">            &quot;exec_ports&quot;: [80],</span>
+<span class="s">            &quot;agent_type&quot;: &quot;normal&quot;,</span>
+<span class="s">            &quot;cpu_arch&quot;: &quot;x86-64&quot;,</span>
+<span class="s">            &quot;memory_min&quot;: 1000,</span>
+<span class="s">            &quot;storage_min&quot;: 100,</span>
+<span class="s">            &quot;req_resource&quot;: [],</span>
+<span class="s">            &quot;opt_resource&quot;: []</span>
+<span class="s">    },</span>
+<span class="s">&quot;sla_template&quot;: &quot;sla_template/a7a30e2b-2ba1-4370-a1d4-af85c30d8713&quot;,</span>
+<span class="s">&quot;agents_list&quot;: [{&quot;agent_ip&quot;: &quot;192.168.252.41&quot;}, {&quot;agent_ip&quot;: &quot;192.168.252.42&quot;}]</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+curl -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -X POST https://lifecycle:46000/api/v2/lm/service -d @post_service3.json --insecure
+</pre></div>
+</div>
+<p>If the service is successfully deployed, then the response should contain the resulting service instance object:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
+  <span class="s2">&quot;service_instance&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;updated&quot;</span>: <span class="s2">&quot;2018-05-08T10:00:58.397607Z&quot;</span>,
+    <span class="s2">&quot;agents&quot;</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">&quot;port&quot;</span>: <span class="m">46100</span>,
+        <span class="s2">&quot;allow&quot;</span>: true,
+        <span class="s2">&quot;container_id&quot;</span>: <span class="s2">&quot;fc6ecf2060c1a648d9376dab995543434f7b344bfcae9c178e02bde90d213777&quot;</span>,
+        <span class="s2">&quot;status&quot;</span>: <span class="s2">&quot;started&quot;</span>,
+        <span class="s2">&quot;agent&quot;</span>: <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span>: <span class="s2">&quot;agent/default-value&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;url&quot;</span>: <span class="s2">&quot;192.168.252.41&quot;</span>,
+        <span class="s2">&quot;master_compss&quot;</span>: true,
+        <span class="s2">&quot;num_cpus&quot;</span>: <span class="m">7</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">&quot;port&quot;</span>: <span class="m">46100</span>,
+        <span class="s2">&quot;allow&quot;</span>: true,
+        <span class="s2">&quot;container_id&quot;</span>: <span class="s2">&quot;7d7acb04e1389c3a7242db40c005555c54340c7fce6a96647664ae7dd4659087&quot;</span>,
+        <span class="s2">&quot;status&quot;</span>: <span class="s2">&quot;started&quot;</span>,
+        <span class="s2">&quot;agent&quot;</span>: <span class="o">{</span>
+          <span class="s2">&quot;href&quot;</span>: <span class="s2">&quot;agent/default-value&quot;</span>
+        <span class="o">}</span>,
+        <span class="s2">&quot;url&quot;</span>: <span class="s2">&quot;192.168.252.42&quot;</span>,
+        <span class="s2">&quot;num_cpus&quot;</span>: <span class="m">7</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">&quot;user&quot;</span>: <span class="s2">&quot;user&quot;</span>,
+    <span class="s2">&quot;resourceURI&quot;</span>: <span class="s2">&quot;http://schemas.dmtf.org/cimi/2/ServiceInstance&quot;</span>,
+    <span class="s2">&quot;acl&quot;</span>: <span class="o">{</span>
+      <span class="s2">&quot;owner&quot;</span>: <span class="o">{</span>
+        <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;ROLE&quot;</span>,
+        <span class="s2">&quot;principal&quot;</span>: <span class="s2">&quot;user&quot;</span>
+      <span class="o">}</span>,
+      <span class="s2">&quot;rules&quot;</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;ROLE&quot;</span>,
+          <span class="s2">&quot;right&quot;</span>: <span class="s2">&quot;ALL&quot;</span>,
+          <span class="s2">&quot;principal&quot;</span>: <span class="s2">&quot;user&quot;</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;ROLE&quot;</span>,
+          <span class="s2">&quot;right&quot;</span>: <span class="s2">&quot;ALL&quot;</span>,
+          <span class="s2">&quot;principal&quot;</span>: <span class="s2">&quot;ANON&quot;</span>
+        <span class="o">}</span>
+      <span class="o">]</span>
+    <span class="o">}</span>,
+    <span class="s2">&quot;id&quot;</span>: <span class="s2">&quot;service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7&quot;</span>,
+    <span class="s2">&quot;agreement&quot;</span>: <span class="s2">&quot;not-defined&quot;</span>,
+    <span class="s2">&quot;operations&quot;</span>: <span class="o">[</span>
+      <span class="o">{</span>
+        <span class="s2">&quot;rel&quot;</span>: <span class="s2">&quot;edit&quot;</span>,
+        <span class="s2">&quot;href&quot;</span>: <span class="s2">&quot;service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7&quot;</span>
+      <span class="o">}</span>,
+      <span class="o">{</span>
+        <span class="s2">&quot;rel&quot;</span>: <span class="s2">&quot;delete&quot;</span>,
+        <span class="s2">&quot;href&quot;</span>: <span class="s2">&quot;service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7&quot;</span>
+      <span class="o">}</span>
+    <span class="o">]</span>,
+    <span class="s2">&quot;status&quot;</span>: <span class="s2">&quot;started&quot;</span>,
+    <span class="s2">&quot;created&quot;</span>: <span class="s2">&quot;2018-05-08T10:00:34.387Z&quot;</span>,
+    <span class="s2">&quot;service&quot;</span>: <span class="s2">&quot;app_compss_test_01&quot;</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;message&quot;</span>: <span class="s2">&quot;Deploy service&quot;</span>,
+  <span class="s2">&quot;error&quot;</span>: <span class="nb">false</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="stop-and-start-a-service-instance">
+<h3>Stop and start a service instance<a class="headerlink" href="#stop-and-start-a-service-instance" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>The service instance can be stopped with the following command:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;put_stop_service_instance.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">  &quot;operation&quot;:&quot;stop&quot;</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+curl -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -X PUT https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7 -d @put_stop_service_instance.json --insecure
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>And it can be restarted again with the following command:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;put_start_service_instance.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">  &quot;operation&quot;:&quot;start&quot;</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+curl -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -X PUT https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7 -d @put_start_service_instance.json --insecure
+</pre></div>
+</div>
+</div>
+<div class="section" id="sart-a-job-compss-services">
+<h3>Sart a job (COMPSs services)<a class="headerlink" href="#sart-a-job-compss-services" title="Permalink to this headline">¶</a></h3>
+<p>Services based on COMPSs can also run specific jobs in the mF2C agents. The lifecycle calls the COMPSs master, and this master distributes the job in the different worker agents.</p>
+<ol class="arabic simple">
+<li><p>Start a job:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat &gt;put_start_job.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">            &quot;operation&quot;:&quot;start-job&quot;,</span>
+<span class="s">            &quot;ceiClass&quot;:&quot;es.bsc.compss.agent.test.TestItf&quot;,</span>
+<span class="s">            &quot;className&quot;:&quot;es.bsc.compss.agent.test.Test&quot;,</span>
+<span class="s">            &quot;hasResult&quot;:false,</span>
+<span class="s">            &quot;methodName&quot;:&quot;main&quot;,</span>
+<span class="s">            &quot;parameters&quot;:&quot; &lt;params paramId=\&quot;0\&quot;&gt; &lt;direction&gt;IN&lt;/direction&gt; &lt;stream&gt;UNSPECIFIED&lt;/stream&gt; &lt;type&gt;OBJECT_T&lt;/type&gt; &lt;array paramId=\&quot;0\&quot;&gt; &lt;componentClassname&gt;java.lang.String&lt;/componentClassname&gt; &lt;values&gt; &lt;element paramId=\&quot;0\&quot;&gt; &lt;className&gt;java.lang.String&lt;/className&gt; &lt;value xmlns:xsi=\&quot;http://www.w3.org/2001/XMLSchema-instance\&quot; xmlns:xs=\&quot;http://www.w3.org/2001/XMLSchema\&quot; xsi:type=\&quot;xs:string\&quot;&gt;3&lt;/value&gt; &lt;/element&gt; &lt;/values&gt; &lt;/array&gt; &lt;/params&gt;&quot;</span>
+<span class="s">    }</span>
+<span class="s">EOF</span>
+curl -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -X PUT https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7/compss -d @put_start_job.json --insecure
+</pre></div>
+</div>
+</div>
+<div class="section" id="terminate-a-service-instance">
+<h3>Terminate a service instance<a class="headerlink" href="#terminate-a-service-instance" title="Permalink to this headline">¶</a></h3>
+<p>The call to terminate a service instance, stops and removes the service instance (docker containers) from the agents.</p>
+<ol class="arabic simple">
+<li><p>Terminate a service instance:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -X DELETE https://lifecycle:46000/api/v2/lm/service-instance/2f6da0d0-e1e9-44fb-b03f-4259ce55a8f7 --insecure
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-service-instances">
+<h3>Get service instances<a class="headerlink" href="#get-service-instances" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>To get all service instances:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl https://lifecycle:46000/api/v2/lm/service-instance/all --insecure
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>To get a specific service instance:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl https://lifecycle:46000/api/v2/lm/service-instance/4e1ab919-7a02-4260-993a-e0f5382ea580 --insecure
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="landscaper-module">
+<h2>Landscaper module<a class="headerlink" href="#landscaper-module" title="Permalink to this headline">¶</a></h2>
+<p>The Landscaper component is part of the Platform Manager’s Service Orchestration module.
+It constructs a graph model of the computing infrastructure. The graph details what service are running on what virtual infrastructure, and on which physical hosts that virtual infrastructure is running on.
+For IT-1, the landscaper is accessible through <a href="#id2"><span class="problematic" id="id3">*</span></a><a class="reference external" href="http://localhost:46020/">http://localhost:46020/</a></p>
+<div class="section" id="get-full-graph-of-system">
+<h3>Get full graph of system<a class="headerlink" href="#get-full-graph-of-system" title="Permalink to this headline">¶</a></h3>
+<p>This method returns the entire graph of all infrastructure, containers and services currently deployed. It can be used to get a dump from the database</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET https://localhost:46020/graph
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Get full graph of system<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>This method returns the entire graph of all infrastructure, containers and services currently deployed. It can be used to get a dump from the database</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET https://localhost:46020/graph
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-a-service-stack-s-subgraph">
+<h3>Get a service stack’s subgraph<a class="headerlink" href="#get-a-service-stack-s-subgraph" title="Permalink to this headline">¶</a></h3>
+<p>This method returns a subgraph from the model of all nodes involved in the running of this service. It starts with the service node (as input parameter) and works down through the entire structure of the graph</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET https://localhost:46020/subgraph/&lt;service_id&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-geolocation-info-to-nodes">
+<h3>Add GeoLocation info to nodes<a class="headerlink" href="#add-geolocation-info-to-nodes" title="Permalink to this headline">¶</a></h3>
+<p>Stores the geo-location as tags to selected nodes in the database. Useful to track static edge compute locations. Takes in an array of node Id’s and geo locations</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, mF2C
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

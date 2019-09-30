@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AC Library &mdash; mF2C 1.0 (2018-03-21) documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mF2C
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">New</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mF2C</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>AC Library</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/mF2C/docs/aclib.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ac-library">
+<h1>AC Library<a class="headerlink" href="#ac-library" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>The library provides utility functions to implement the mF2C data security policy and for the processing of identity token.</p>
+<p>The mF2C data security policy defines three different message security levels:</p>
+<p><em>public</em> - for data not requiring protection</p>
+<p><em>protected</em> - for data which needs to be integrity protected but is not confidential</p>
+<p><em>private</em> - for data which needs both integrity and confidentiality protection</p>
+<p>The library uses a consistent data packaging structure to encapsulate messages and supporting metadata.  It leverages existing mF2C PKI and the CAU security middleware to provide credentials for signing and encrypting the message payloads according to the security level specified by caller.  The library adopts the Json Web Signature (JWS - <a class="reference external" href="https://tools.ietf.org/html/rfc7515">RFC 7515</a>) specification for signing Protected messages and the Json Web Encryption (JWE - <a class="reference external" href="https://tools.ietf.org/html/rfc7516">RFC 7516</a>) one for encrypting Private confidential messages.  Encrypted message tokens protect data payload confidentiality beyond the communication endpoints (as in TLS) as a recipient needs to use its Private Key issued by mF2C PKI to decrypt a token’s content encryption key before it can successfully retrieve the message payload.  For consistency purposes, the library also provides a method to encapsulate public messages as unsigned JWSs.  Callers may optionally compress the payload to optimise its size.</p>
+<p>In addition to the above, the library also provides functionalities for creating and verifying Agent self-signed identity Json Web Tokens (JWT - <a class="reference external" href="https://tools.ietf.org/html/rfc7519">RFC 7519</a>).  An Agent asserts its own identity to another Agent by presenting a JWS with JWT claims in the payload.  The JWS is signed using the issuing Agent’s Private Key associated with its mF2C X.509 certificate.  The receiving Agent (audience) can authenticate the claims by validating the signature using the Public Key retrieved from the CAU middleware and comparing the asserted deviceID (claim) against the issuer’s deviceID.</p>
+<p>The AC library is deployed as an Agent block and runs an TCP socket server to listen to calls for creating a message/identity token and extracting message payload from/verifying a provided token from other blocks within the same Agent. (Please see the AC Lib.pdf in the resources folder for a presentation on its features and usages.) The library in turn uses the local <a class="reference external" href="https://github.com/mF2C/cau-client">CAU-client</a> block as an entry point the the CAU middleware for retrieving senders’ and recipients’ public keys.</p>
+</div>
+<div class="section" id="building-the-java-library">
+<h2>Building the Java library<a class="headerlink" href="#building-the-java-library" title="Permalink to this headline">¶</a></h2>
+<p>The library is packaged with a self-contained fat jar with all depended libraries.  The jar is located in the target folder and the javadoc in the target\site\apidocs folder.  You can use Maven to build a fat jar with all dependencies using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>	<span class="n">package</span> <span class="n">javadoc</span><span class="p">:</span><span class="n">javadoc</span> <span class="o">-</span><span class="n">Dmaven</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">skip</span><span class="o">=</span><span class="n">true</span>
+</pre></div>
+</div>
+<p>It is recommended that you select the skip test option as the tests may not run correctly in your own environment.</p>
+</div>
+<div class="section" id="building-the-docker-container">
+<h2>Building the Docker container<a class="headerlink" href="#building-the-docker-container" title="Permalink to this headline">¶</a></h2>
+<p>This project provides a self-contained fat jar with all depended libraries.  It is assumed that you have <a class="reference external" href="https://docs.docker.com/">Docker</a> installed on your platform.  Build the Docker file to create the image and container for running the AC Lib TCP server.  The Docker file contains default values which you may optionally over-ride to match your deployment environment:</p>
+<p><em>aclib server port</em> - The port that AC Lib TCP server listens at, default value is 46080</p>
+<p><em>cau-client port</em> - the port that the Agent’s CAU-Client listens at, default value is 46065.  The CAU-client should run in the same network as the AC Lib as it is just another block of the same Agent.</p>
+<p>The Docker file exposes port 46080 on the host for the acLib server port.  If the latter is changed, please also update this parameter.</p>
+</div>
+<div class="section" id="running">
+<h2>Running<a class="headerlink" href="#running" title="Permalink to this headline">¶</a></h2>
+<p>You can run the library from the command line</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="n">mf2c</span><span class="o">-</span><span class="n">aclib</span><span class="o">-</span><span class="n">jar</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">dependencies</span><span class="o">.</span><span class="n">jar</span> <span class="p">[</span><span class="n">port</span><span class="p">]</span> <span class="p">[</span><span class="n">cau</span><span class="o">-</span><span class="n">client</span> <span class="n">port</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You can override all two parameters or just the cau-client port.  The application accepts 0 (using all default values), 1 (overriding cau-client port value) or 2 (over-riding all two values) arguments.</p>
+<div class="section" id="api">
+<h3>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h3>
+<p>ACLib runs a TCP server which listens at port 46080 for requests.</p>
+<div class="section" id="examples">
+<h4>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h4>
+<p>See AC Lib.pdf under the resources folder for more details.  Or use this <a class="reference external" href="https://github.com/mF2C/aclib/blob/master/src/main/resources/AC%20Lib.pdf">on-line version</a>.</p>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="changelog">
+<h2>CHANGELOG<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="first-release">
+<h3>1.0 (29/07/2019) first release<a class="headerlink" href="#first-release" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="added">
+<h4>Added<a class="headerlink" href="#added" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="changed">
+<h4>Changed<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, mF2C
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

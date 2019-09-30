@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Polices &mdash; mF2C 1.0 (2018-03-21) documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mF2C
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">New</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mF2C</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Polices</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/mF2C/docs/policies.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="polices">
+<h1>Polices<a class="headerlink" href="#polices" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Policies - Resource Management
+CRAAX - UPC, 2019
+The Policies module is a component of the European Project mF2C.</p>
+</div></blockquote>
+<p>Policies module is responsible for:</p>
+<ul class="simple">
+<li><p>Define the resilience and clustering policies.</p></li>
+<li><p>Enforce the protection of the area (Leader and Backup).</p></li>
+<li><p>Definition and Execution of the Leader Election Algorithm.</p></li>
+<li><p>Orchestration of the Resource Manager Block.</p></li>
+</ul>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>The Policies module can be run ussing the dockerized version or directly from source.</p>
+<div class="section" id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<p>Last build version from docker hub: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span> <span class="pre">mf2c/policies:&lt;version&gt;</span></code></p>
+<p>Replace <em><version></em> with a valid uploaded version <a class="reference external" href="https://cloud.docker.com/u/mf2c/repository/docker/mf2c/policies/tags">here</a>.</p>
+</div>
+<div class="section" id="source">
+<h3>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.7.x</span></code> is required to execute this code.</p>
+<ol class="simple">
+<li><p>Clone the repository with Git. It’s hightly recomended to create a Python virtual environment.</p></li>
+<li><p>Install all the library dependencies: <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+<li><p>Execute the following command: <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">main.py</span></code></p></li>
+</ol>
+</div>
+<div class="section" id="api">
+<h3>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h3>
+<p>All the API calls are made via REST. The endpoints and required parameters can be consulted on <a class="reference external" href="http://localhost:46050/">http://{policies_address}:46050/</a></p>
+<p><strong>Note:</strong> Replace <em>policies_address</em> with the real address of the container or device where the code is running.</p>
+<div class="section" id="resource-manager-status">
+<h4>Resource Manager Status<a class="headerlink" href="#resource-manager-status" title="Permalink to this headline">¶</a></h4>
+<p>Get resource manager module start status and errors on triggers.</p>
+<ul class="simple">
+<li><p><strong>GET</strong>  /rm/components</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://localhost/rm/components&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span>
+</pre></div>
+</div>
+<ul>
+<li><p><strong>RESPONSES</strong></p>
+<ul class="simple">
+<li><p><strong>200</strong> - Success</p></li>
+<li><p><strong>Response Payload:</strong></p></li>
+</ul>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+&quot;started&quot;: true,                              // The agent is started
+&quot;running&quot;: true,                              // The agent is currently running
+&quot;modules&quot;: [                                  // List of modules that are triggered on starting
+&quot;string&quot;
+],
+&quot;discovery&quot;: true,                            // Discovery module is started
+&quot;identification&quot;: true,                       // Identification module is started
+&quot;cau_client&quot;: true,                           // CAUClient module is started
+&quot;categorization&quot;: true,                       // Categorization module is started
+&quot;policies&quot;: true,                             // Area Resilience module is started
+&quot;discovery_description&quot;: &quot;string&quot;,            // Discovery module description / parameters received
+&quot;identification_description&quot;: &quot;string&quot;,       // Identification module description / parameters received
+&quot;categorization_description&quot;: &quot;string&quot;,       // Categorization module description / parameters received
+&quot;policies_description&quot;: &quot;string&quot;,             // Policies module description / parameters received
+&quot;cau_client_description&quot;: &quot;string&quot;            // CAUClient module description / parameters received
+}
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="keepalive">
+<h4>Keepalive<a class="headerlink" href="#keepalive" title="Permalink to this headline">¶</a></h4>
+<p>Keepalive entrypoint for Leader. Backups send message to this address and check if the Leader is alive. Only registered backups are allowed to send keepalives, others will be rejected.</p>
+<ul class="simple">
+<li><p><strong>POST</strong> /api/v2/resource-management/policies/keepalive</p></li>
+<li><p><strong>PAYLOAD</strong>  <code class="docutils literal notranslate"><span class="pre">{&quot;deviceID&quot;:</span> <span class="pre">&quot;agent/1234&quot;}</span></code></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;http://localhost/api/v2/resource-management/policies/keepalive&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span> -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -d <span class="s2">&quot;{ \&quot;deviceID\&quot;: \&quot;agent/1234\&quot;}&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>RESPONSES</strong></p>
+<ul>
+<li><p><strong>200</strong> - Success</p></li>
+<li><p><strong>403</strong> - Agent not authorized</p></li>
+<li><p><strong>405</strong> - Device is not a Leader</p></li>
+<li><p><strong>Response Payload:</strong> <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">&quot;deviceID&quot;:</span> <span class="pre">&quot;leader/1234&quot;,</span> <span class="pre">&quot;backupPriority&quot;:</span> <span class="pre">0</span> <span class="pre">}</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="leader-info">
+<h4>Leader Info<a class="headerlink" href="#leader-info" title="Permalink to this headline">¶</a></h4>
+<p>Check if the agent is a Leader or Backup.</p>
+<ul class="simple">
+<li><p><strong>GET</strong> /api/v2/resource-management/policies/leaderinfo</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://localhost/api/v2/resource-management/policies/leaderinfo&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>RESPONSES</strong></p>
+<ul>
+<li><p><strong>200</strong> - Success</p></li>
+<li><p><strong>Response Payload:</strong> <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">&quot;imLeader&quot;:</span> <span class="pre">false,</span> <span class="pre">&quot;imBackup&quot;:</span> <span class="pre">false</span> <span class="pre">}</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="reelection">
+<h4>Reelection<a class="headerlink" href="#reelection" title="Permalink to this headline">¶</a></h4>
+<p>Send a message to trigger the reelection process. The specified agent will be the reelected leader if it accepts.</p>
+<ul class="simple">
+<li><p><strong>POST</strong> /api/v2/resource-management/policies/reelection</p></li>
+<li><p><strong>PAYLOAD</strong> <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">&quot;deviceID&quot;:</span> <span class="pre">&quot;agent/1234&quot;</span> <span class="pre">}</span></code></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X POST <span class="s2">&quot;http://localhost/api/v2/resource-management/policies/reelection&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span> -H <span class="s2">&quot;Content-Type: application/json&quot;</span> -d <span class="s2">&quot;{ \&quot;deviceID\&quot;: \&quot;agent/1234\&quot;}&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>RESPONSES</strong></p>
+<ul>
+<li><p><strong>200</strong> - Reelection Successful</p></li>
+<li><p><strong>401</strong> - The Agent is not authorized to trigger the reelection</p></li>
+<li><p><strong>403</strong> - Reelection failed</p></li>
+<li><p><strong>404</strong> - Device not found or IP not available</p></li>
+<li><p><strong>Response Payload:</strong> <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">&quot;imLeader&quot;:</span> <span class="pre">false,</span> <span class="pre">&quot;imBackup&quot;:</span> <span class="pre">false</span> <span class="pre">}</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="start-area-resilience">
+<h4>Start Area Resilience<a class="headerlink" href="#start-area-resilience" title="Permalink to this headline">¶</a></h4>
+<p>Starts the Area Resilience submodule (in charge of the Leader Protection)</p>
+<ul class="simple">
+<li><p><strong>GET</strong> /api/v2/resource-management/policies/startAreaResilience</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://localhost/api/v2/resource-management/policies/startAreaResilience&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>RESPONSES</strong></p>
+<ul>
+<li><p><strong>200</strong> - Started</p></li>
+<li><p><strong>403</strong> - Already Started</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="start-agent">
+<h4>Start Agent<a class="headerlink" href="#start-agent" title="Permalink to this headline">¶</a></h4>
+<p>Start the agent (start as Leader or Normal agent + Discovery, CAU Client and Categorization Triggers)</p>
+<ul class="simple">
+<li><p><strong>GET</strong> /api/v2/resource-management/policies/policiesstartAgent</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://localhost/api/v2/resource-management/policiesstartAgent&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>RESPONSES</strong></p>
+<ul>
+<li><p><strong>200</strong> - Started</p></li>
+<li><p><strong>403</strong> - Already Started</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="role-change">
+<h4>Role Change<a class="headerlink" href="#role-change" title="Permalink to this headline">¶</a></h4>
+<p>Change the agent from current role to specified one (leader, backup or agent).</p>
+<ul class="simple">
+<li><p><strong>GET</strong> /api/v2/resource-management/policies/roleChange/{role}</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -X GET <span class="s2">&quot;http://localhost/api/v2/resource-management/policies/roleChange/agent&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span>
+curl -X GET <span class="s2">&quot;http://localhost/api/v2/resource-management/policies/roleChange/backup&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span>
+curl -X GET <span class="s2">&quot;http://localhost/api/v2/resource-management/policies/roleChange/leader&quot;</span> -H <span class="s2">&quot;accept: application/json&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>RESPONSES</strong></p>
+<ul>
+<li><p><strong>200</strong> - Successful</p></li>
+<li><p><strong>403</strong> - Not Successful</p></li>
+<li><p><strong>404</strong> - Role not found</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h4><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="known-issues">
+<h3>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">Leader</span> <span class="n">will</span> <span class="n">fail</span> <span class="n">to</span> <span class="n">find</span> <span class="n">available</span> <span class="n">backups</span> <span class="k">as</span> <span class="n">Topology</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">coded</span> <span class="n">to</span> <span class="n">be</span> <span class="n">received</span><span class="o">/</span><span class="n">generated</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="changelog">
+<h2>CHANGELOG<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>2.0.5 (18/09/2019)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="changed">
+<h4>Changed<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">Discovery</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">outside</span> <span class="n">the</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">network</span><span class="o">.</span> <span class="n">Policies</span> <span class="n">get</span> <span class="n">automatically</span> <span class="n">the</span> <span class="n">IP</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>2.0.4 (10/09/2019)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="added">
+<h4>Added<a class="headerlink" href="#added" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">Discovery</span> <span class="n">Triggers</span><span class="p">:</span> <span class="n">JOIN</span> <span class="ow">and</span> <span class="n">DHCP</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h4>Changed<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">Discovery</span> <span class="n">triggers</span> <span class="n">are</span> <span class="n">now</span> <span class="n">more</span> <span class="n">verbose</span> <span class="n">on</span> <span class="n">debug</span> <span class="n">mode</span><span class="o">.</span>
+<span class="o">*</span> <span class="n">Identification</span> <span class="n">trigger</span> <span class="n">updated</span>
+<span class="o">*</span> <span class="n">CAU</span> <span class="n">client</span> <span class="n">trigger</span> <span class="n">updated</span>
+<span class="o">*</span> <span class="n">BUG</span><span class="p">:</span> <span class="n">When</span> <span class="n">identification</span> <span class="n">doesn</span><span class="s1">&#39;t provide a valid deviceID, CAU client fails, crashing the Agent CIMI resource.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>2.0.3 (04/07/2019)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h4>Changed<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">BUG</span><span class="p">:</span> <span class="n">Agent</span> <span class="n">resource</span> <span class="ow">not</span> <span class="n">created</span> <span class="n">correctly</span> <span class="n">on</span> <span class="n">Leader</span> <span class="n">due</span> <span class="n">isAuth</span> <span class="ow">and</span> <span class="n">connected</span> <span class="n">values</span><span class="o">.</span>
+<span class="o">*</span> <span class="n">Incremented</span> <span class="n">the</span> <span class="n">amount</span> <span class="n">of</span> <span class="n">registration</span> <span class="n">attempts</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">errors</span> <span class="n">on</span> <span class="n">slower</span> <span class="n">machines</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>2.0.2 (20/05/2019)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h4>Added<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">LeaderIP</span> <span class="n">environment</span> <span class="n">variable</span> <span class="n">added</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h4>Changed<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">Agent</span> <span class="n">resource</span> <span class="n">include</span> <span class="n">Leader</span> <span class="n">IP</span> <span class="k">if</span> <span class="n">specified</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span> <span class="n">variable</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>2.0.1 (15/05/2019)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h4>Added<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">Create</span><span class="o">/</span><span class="n">Modify</span> <span class="n">Agent</span> <span class="n">Resource</span>
+<span class="o">+</span> <span class="n">Documentation</span> <span class="n">Added</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h4>Changed<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">README</span> <span class="n">updated</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>2.0.0 (17/04/2019)<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h4>Added<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">Leader</span> <span class="n">Election</span> <span class="n">PLE</span><span class="p">,</span> <span class="n">ALE</span> <span class="n">implemented</span>
+<span class="o">+</span> <span class="n">Leader</span> <span class="n">Protection</span> <span class="p">(</span><span class="n">AR</span> <span class="ow">and</span> <span class="n">LR</span><span class="p">)</span> <span class="n">implemented</span>
+<span class="o">+</span> <span class="n">LICENSE</span> <span class="n">added</span>
+<span class="o">+</span> <span class="n">logging</span> <span class="n">implemented</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h4>Changed<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">Agent</span> <span class="n">to</span> <span class="n">Leader</span> <span class="ow">and</span> <span class="n">Leader</span> <span class="n">to</span> <span class="n">Agent</span> <span class="n">reusable</span> <span class="n">procedure</span>
+<span class="o">*</span> <span class="n">CIMI</span> <span class="ow">and</span> <span class="n">Identification</span> <span class="n">availability</span> <span class="n">scan</span> <span class="n">before</span> <span class="n">start</span>
+<span class="o">*</span> <span class="n">AR</span> <span class="n">REST</span> <span class="n">protocol</span>
+<span class="o">*</span> <span class="n">AgentStart</span> <span class="n">code</span> <span class="n">reviewed</span>
+<span class="o">*</span> <span class="n">REST</span> <span class="n">API</span> <span class="n">documented</span>
+<span class="o">*</span> <span class="n">Dockerfile</span> <span class="n">redefinition</span>
+<span class="o">*</span> <span class="n">README</span> <span class="n">updated</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="removed">
+<h4>Removed<a class="headerlink" href="#removed" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Old</span> <span class="n">deprecated</span> <span class="ow">and</span> <span class="n">test</span> <span class="n">files</span> <span class="n">deleted</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, mF2C
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
