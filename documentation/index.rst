@@ -11,3 +11,4 @@ Welcome to the mF2C documentation!
    user_guide/index.rst
    developer_guide/index.rst
    mF2C/docs/index.rst
+   mF2C/docs/cimi.md
