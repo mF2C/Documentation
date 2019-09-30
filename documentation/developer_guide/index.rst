@@ -12,3 +12,4 @@ This is the developer guide
    cluster_creation.rst
    testing.rst
    credentials.rst
+   ../mF2C/docs/index.rst
