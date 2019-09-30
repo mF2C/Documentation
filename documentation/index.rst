@@ -10,3 +10,5 @@ Welcome to the mF2C documentation!
    introduction.rst
    mF2C/docs/index.rst
    mF2C/docs/cimi.md
+
+.. mdinclude:: mF2C/docs/cimi.md
