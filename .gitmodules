@@ -1,0 +1,3 @@
+[submodule "documentation/mF2C"]
+	path = documentation/mF2C
+	url = https://github.com/mF2C/mF2C
